@@ -85,7 +85,7 @@ function inicializarTabuleiro() {
 }
 
 /**
- * Conta quantas bombas existem nas 8 células vizinhas. (Lógica mantida)
+ * Conta quantas bombas existem nas 8 células vizinhas.
  */
 function contarBombasVizinhas(r, c) {
 	let contagem = 0;
@@ -128,7 +128,7 @@ function criarDOMTabuleiro() {
 				revelarCelula(i, j);
 			});
 
-			// Tratamento de clique direito (bandeira)
+			// Tratamento de clique direito (bandeira/interrogação)
 			celula.addEventListener('contextmenu', (e) => {
 				e.preventDefault();
 				colocarBandeira(celula);
@@ -151,10 +151,10 @@ function iniciarJogo() {
 // --- Funções do Cronômetro ---
 
 function iniciarCronometro() {
-	if (cronometroInterval) return; // Evita iniciar múltiplas vezes
+	if (cronometroInterval) return;
 	cronometroInterval = setInterval(() => {
 		tempoDecorrido++;
-		if (tempoDecorrido > 999) tempoDecorrido = 999; // Limite de 999
+		if (tempoDecorrido > 999) tempoDecorrido = 999;
 		timerElemento.textContent = String(tempoDecorrido).padStart(3, '0');
 	}, 1000);
 }
@@ -183,12 +183,18 @@ function revelarCelula(r, c) {
 
 	const celulaDOM = tabuleiroElemento.children[r * COLUNAS + c];
 
-	// Se já estiver revelada ou tiver bandeira, não faz nada
+	// Se já estiver revelada ou tiver bandeira, não faz nada (interrogação pode ser revelada)
 	if (
 		celulaDOM.classList.contains('revelada') ||
 		celulaDOM.classList.contains('bandeira')
 	) {
 		return;
+	}
+
+	// Se tiver interrogação, remove a interrogação antes de revelar
+	if (celulaDOM.classList.contains('interrogacao')) {
+		celulaDOM.classList.remove('interrogacao');
+		celulaDOM.textContent = '';
 	}
 
 	celulaDOM.classList.add('revelada');
@@ -232,7 +238,9 @@ function revelarCelula(r, c) {
 }
 
 /**
- * Trata o clique direito (colocar/remover bandeira).
+ * Trata o clique direito (colocar/remover bandeira/interrogação).
+ * Implementa o ciclo: Fechada -> Bandeira -> Interrogação -> Fechada.
+ * @param {HTMLElement} celulaDOM - O elemento DOM da célula.
  */
 function colocarBandeira(celulaDOM) {
 	if (!jogoAtivo || celulaDOM.classList.contains('revelada')) return;
@@ -242,13 +250,24 @@ function colocarBandeira(celulaDOM) {
 		iniciarCronometro();
 	}
 
-	if (celulaDOM.classList.contains('bandeira')) {
-		// Remove a bandeira
+	const temBandeira = celulaDOM.classList.contains('bandeira');
+	const temInterrogacao = celulaDOM.classList.contains('interrogacao');
+
+	if (temBandeira) {
+		// 1. De Bandeira para Interrogação
 		celulaDOM.classList.remove('bandeira');
+		celulaDOM.classList.add('interrogacao');
+		celulaDOM.textContent = '?';
+		// O contador de bombas (bombasRestantes) NÃO muda aqui.
+	} else if (temInterrogacao) {
+		// 2. De Interrogação para Fechada
+		celulaDOM.classList.remove('interrogacao');
 		celulaDOM.textContent = '';
+		// Como a bandeira foi usada no passo anterior (Fechada -> Bandeira), devolvemos
+		// a contagem de bandeiras aqui, quando a célula volta a ser vazia.
 		bombasRestantes++;
 	} else if (bombasRestantes > 0) {
-		// Coloca a bandeira
+		// 3. De Fechada para Bandeira (se houver bandeiras disponíveis)
 		celulaDOM.classList.add('bandeira');
 		celulaDOM.textContent = '▲'; // Ícone da bandeira XP
 		bombasRestantes--;
@@ -298,11 +317,18 @@ function fimDeJogo(vitoria) {
 						celulaDOM.classList.add('revelada', 'bomba');
 						celulaDOM.textContent = '●';
 					}
+					// Remove interrogação para revelar a bomba
+					if (celulaDOM.classList.contains('interrogacao')) {
+						celulaDOM.classList.remove('interrogacao');
+						celulaDOM.textContent = '●';
+					}
 				} else if (celulaDOM.classList.contains('bandeira')) {
 					// Mostra bandeira errada (X)
 					celulaDOM.classList.add('revelada');
 					celulaDOM.textContent = '❌';
 				}
+				// Garante que todas as células sejam reveláveis (para remover o cursor de clique)
+				celulaDOM.classList.add('revelada');
 			}
 		}
 	} else {
@@ -312,6 +338,9 @@ function fimDeJogo(vitoria) {
 		for (let i = 0; i < LINHAS; i++) {
 			for (let j = 0; j < COLUNAS; j++) {
 				const celulaDOM = tabuleiroElemento.children[i * COLUNAS + j];
+				// Remove qualquer interrogação
+				celulaDOM.classList.remove('interrogacao');
+				// Coloca bandeira nas bombas não marcadas
 				if (
 					tabuleiro[i][j] === -1 &&
 					!celulaDOM.classList.contains('bandeira')
@@ -319,6 +348,7 @@ function fimDeJogo(vitoria) {
 					celulaDOM.classList.add('bandeira');
 					celulaDOM.textContent = '▲';
 				}
+				celulaDOM.classList.add('revelada');
 			}
 		}
 		bombasRestantes = 0;
