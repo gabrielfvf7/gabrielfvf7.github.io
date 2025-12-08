@@ -1,97 +1,243 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Página de Gabriel Vargas Ferreira" />
+		<title>Gabriel Vargas Ferreira</title>
 
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Página de Gabriel Vargas">
-    <title>Gabriel Vargas Ferreira</title>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+			integrity="sha384-"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
+		/>
+		<link rel="stylesheet" href="css/layouts/marketing.css" />
+	</head>
 
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-    <link rel="stylesheet" href="css/layouts/marketing.css">
-</head>
+	<body>
+		<div class="header">
+			<div
+				class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed"
+			>
+				<a class="pure-menu-heading" href=""></a>
+				<ul class="pure-menu-list">
+					<li class="pure-menu-item">
+						<a
+							id="link"
+							href="#texto-sobre"
+							class="pure-menu-link"
+							onClick="ScrollToAnchor()"
+							>Sobre</a
+						>
+					</li>
+					<li class="pure-menu-item">
+						<a href="#secao-projetos" class="pure-menu-link"
+							>Projetos</a
+						>
+					</li>
+					<li
+						class="pure-menu-item pure-menu-has-children pure-menu-allow-hover"
+					>
+						<a
+							href="#caixafinal"
+							id="menuLink1"
+							class="pure-menu-link"
+							>Contato</a
+						>
+						<ul class="pure-menu-children">
+							<li class="pure-menu-item">
+								<a
+									href="mailto:gabrielfvargasf@gmail.com"
+									class="pure-menu-link"
+									>Email</a
+								>
+							</li>
+							<li class="pure-menu-item">
+								<a
+									href="https://www.facebook.com/gabrielfvf7"
+									class="pure-menu-link"
+									>Facebook</a
+								>
+							</li>
+							<li class="pure-menu-item">
+								<a
+									href="https://t.me/Gabrielfvf"
+									class="pure-menu-link"
+									>Telegram</a
+								>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
 
-<body>
-    <div class="header">
-        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-            <a class="pure-menu-heading" href=""></a>
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item"><a id="link" href="#texto-sobre" class="pure-menu-link" onClick="ScrollToAnchor()">Sobre</a></li>
-                <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                    <a href="#caixafinal" id="menuLink1" class="pure-menu-link">Contato</a>
-                    <ul class="pure-menu-children">
-                        <li class="pure-menu-item"><a href="mailto:gabrielfvf@outlook.com" class="pure-menu-link">Email</a></li>
-                        <li class="pure-menu-item"><a href="https://www.facebook.com/gabrielfvf7" class="pure-menu-link">Facebook</a></li>
-                        <li class="pure-menu-item"><a href="https://t.me/Gabrielfvf" class="pure-menu-link">Telegram</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
+		<div class="splash-container">
+			<div class="splash">
+				<h1 class="splash-head">
+					<strong>Gabriel Vargas Ferreira</strong>
+				</h1>
+				<p class="splash-subhead">
+					Mobile | React Native | Typescript | Firebase.
+				</p>
+			</div>
+		</div>
 
-    <div class="splash-container">
-        <div class="splash">
-            <h1 class="splash-head"><strong>Gabriel vargas</strong></h1>
-            <p class="splash-subhead">
-                Mobile e Back-End.
-            </p>
-        </div>
-    </div>
+		<div class="content-wrapper">
+			<a name="texto-sobre" id="texto-sobre"></a>
+			<div class="content">
+				<h2 class="content-head is-center">Sobre</h2>
+				<div class="pure-g">
+					<div class="l-box pure-u-1 pure-u-md-1-2 sobre-caixa">
+						<p class="sobre">
+							Desenvolvedor Mobile com mais de **4 anos de
+							experiência** [cite: 18], proficiente em
+							**Typescript**, **Javascript** e **Python**[cite:
+							18]. Minha experiência inclui a construção de código
+							de alta qualidade e manutenção para aplicações com
+							milhões de usuários[cite: 18].
+							<br /><br />
+							Sou graduado em **Ciência da Computação** pela
+							Universidade Federal do Rio de Janeiro (**UFRJ**)
+							[cite: 19, 46], onde co-fundei o **DevMob UFRJ**
+							[cite: 19, 32], um grupo focado em desenvolvimento
+							mobile que criou aplicações em **Java Nativo**,
+							**React Native** e **Flutter**[cite: 19, 38].
+							<br /><br />
+							Atualmente, sou **Senior Mobile Developer** [cite:
+							22] na **Méliuz** [cite: 21], desenvolvendo para o
+							app financeiro em React Native (Typescript) e código
+							nativo (Java e Swift), lidando com campanhas de
+							indicação, deeplinks, testes A/B, gamificação e
+							Firebase[cite: 24].
+						</p>
+					</div>
+				</div>
+			</div>
 
-    <div class="content-wrapper">
-        <a name="texto-sobre" name="texto-sobre"></a>
-        <div class="content">
-            <h2 class="content-head is-center">Sobre</h2>
-            <div class="pure-g">
-                <div class="l-box pure-u-1 pure-u-md-1-2 sobre-caixa">
-                    <p class="sobre">Aluno do curso de Ciência da Computação e Desenvolvedor Mobile na <strong>DevMob UFRJ</strong>.<br>Desde pequeno sempre tive interesse na área computacional, devido ao tempo que me divertia jogando no meu computador e Super Nintendo, acabei tendo a curiosidade de saber como tudo aquilo era feito, no ano de 2011 adentrei no curso técnico de informática e descobri de fato o que era a programação, desde então continuei me interessando e aprendendo cada vez mais.<br>Recentemente estou aprendendo programação para <strong>Android</strong> e tenho conhecimentos em <strong>C</strong>, <strong>C#</strong>, <strong>Java</strong>, <strong>Python</strong> e <strong>HTML/CSS</strong>. Com pretenção de seguir no mundo <strong>Mobile</strong>, o de <strong>Inteligência Artificial</strong> e <strong>Aprendizado de máquina</strong>.
-                    </p>
-                </div>
+			<div class="content ribbon">
+				<h2 class="content-head is-center xp">Experiencias</h2>
+				<div class="l-box-lrg pure-g">
+					<div class="l-box pure-u-1 pure-u-md-1-2">
+						<h2 class="content-head xp">Atual</h2>
+						<p class="xp">
+							Senior Mobile Developer na Méliuz [cite: 22]<br />
+							Graduado em Ciência da Computação pela UFRJ [cite:
+							46]
+						</p>
+					</div>
+					<div class="l-box pure-u-1 pure-u-md-1-2">
+						<h2 class="content-head xp">Anterior</h2>
+						<p class="xp">
+							Mobile Application Developer na ProntLife (2019 -
+							2021) [cite: 27, 28]<br />
+							Mobile Developer no Banco Maré (2019) [cite: 40, 41]
+						</p>
+					</div>
+				</div>
+			</div>
 
-            </div>
-        </div>
-        <div class="content ribbon ">
-            <h2 class="content-head is-center xp">Experiencias</h2>
-            <div class="l-box-lrg pure-g">
-                <div class="l-box pure-u-1 pure-u-md-1-2">
-                    <h2 class="content-head xp">Atual</h2>
-                    <p class="xp">
-                        Aluno de Ciência da Computação na UFRJ<br> Desenvolvedor Mobile na DevMob UFRJ
-                    </p>
-                </div>
-                <div class="l-box pure-u-1 pure-u-md-1-2">
-                    <h2 class="content-head xp">Anterior</h2>
-                    <p class="xp">
-                        Aluno no Colégio Pedro II - Integrado Informática
-                    </p>
-                </div>
-            </div>
-        </div>
+			<a name="secao-projetos" id="secao-projetos"></a>
+			<div class="content">
+				<h2 class="content-head is-center">Projetos & Demos</h2>
+				<div class="pure-g" style="text-align: center">
+					<div class="l-box pure-u-1 pure-u-md-1-3">
+						<h3 class="content-head">Campo Minado 💣</h3>
+						<p>
+							Uma réplica clássica do jogo Campo Minado
+							desenvolvida em HTML, CSS e JavaScript puro.
+						</p>
+						<a
+							href="minado/"
+							class="pure-button pure-button-primary"
+							style="background: #007bff"
+							>Jogar Agora</a
+						>
+					</div>
 
-        <div id="caixafinal" class="content">
-            <div class="icones">
-                <a href="mailto:gabrielfvf@outlook.com" title="Enviar email">
-                    <img width="5%px" class="pure-img-responsive" src="img/email.png">
-                </a>
-                <a href="https://www.facebook.com/gabrielfvf7" target="_blank" title="Meu Facebook">
-                    <img width="5%" class="pure-img-responsive" src="img/fb.png">
-                </a>
-                <a href="https://github.com/gabrielfvf7" target="_blank">
-                    <img width="5%" class="pure-img-responsive" src="img/github.png">
-                </a>
-                <a href="https://t.me/Gabrielfvf" target="_blank" title="Meu Telegram">
-                    <img width="5%" class="pure-img-responsive" src="img/telegram.png">
-                </a>
-            </div>
-        </div>
-    </div>
+					<div class="l-box pure-u-1 pure-u-md-1-3">
+						<h3 class="content-head">Repositório GitHub</h3>
+						<p>
+							Acesse meu portfólio completo com todos os projetos.
+						</p>
+						<a
+							href="https://github.com/gabrielfvf7"
+							target="_blank"
+							class="pure-button pure-button-primary"
+							style="background: #333"
+							>Ver GitHub</a
+						>
+					</div>
+					<div class="l-box pure-u-1 pure-u-md-1-3">
+						<h3 class="content-head">LinkedIn</h3>
+						<p>
+							Meu perfil profissional para detalhes sobre
+							experiência e certificações.
+						</p>
+						<a
+							href="https://www.linkedin.com/in/gabrielfvf"
+							target="_blank"
+							class="pure-button pure-button-primary"
+							style="background: #0077b5"
+							>Ver LinkedIn</a
+						>
+					</div>
+				</div>
+			</div>
 
-
-
-
-</body>
-
+			<div id="caixafinal" class="content">
+				<div class="icones">
+					<a
+						href="mailto:gabrielfvargasf@gmail.com"
+						title="Enviar email"
+					>
+						<img
+							width="5%px"
+							class="pure-img-responsive"
+							src="img/email.png"
+						/>
+					</a>
+					<a
+						href="https://www.facebook.com/gabrielfvf7"
+						target="_blank"
+						title="Meu Facebook"
+					>
+						<img
+							width="5%"
+							class="pure-img-responsive"
+							src="img/fb.png"
+						/>
+					</a>
+					<a href="https://github.com/gabrielfvf7" target="_blank">
+						<img
+							width="5%"
+							class="pure-img-responsive"
+							src="img/github.png"
+						/>
+					</a>
+					<a
+						href="https://t.me/Gabrielfvf"
+						target="_blank"
+						title="Meu Telegram"
+					>
+						<img
+							width="5%"
+							class="pure-img-responsive"
+							src="img/telegram.png"
+						/>
+					</a>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
