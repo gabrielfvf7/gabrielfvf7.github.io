@@ -3,21 +3,45 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Campo Minado 💣</title>
+		<title>Minesweeper Clone</title>
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
-		<div class="container">
-			<h1>Campo Minado</h1>
-			<div id="status-jogo">
-				<span>Bandeiras restantes: </span
-				><span id="contador-bandeiras"></span>
+		<div class="window-container">
+			<div class="title-bar">
+				<div class="title-bar-text">Minesweeper</div>
+				<div class="title-bar-controls">
+					<button aria-label="Minimize"></button>
+					<button aria-label="Maximize"></button>
+					<button aria-label="Close"></button>
+				</div>
 			</div>
-			<div id="tabuleiro"></div>
-			<button id="botao-reiniciar">Reiniciar Jogo</button>
 
-			<div id="mensagem-final" class="oculto">
-				<p id="texto-mensagem"></p>
+			<div class="window-body">
+				<div id="status-jogo" class="status-bar">
+					<div id="timer" class="display-box">000</div>
+
+					<button id="botao-reiniciar" class="face-button">😊</button>
+
+					<div id="contador-bandeiras" class="display-box">000</div>
+				</div>
+
+				<div id="seletor-dificuldade">
+					<label for="dificuldade">Dificuldade:</label>
+					<select id="dificuldade">
+						<option value="beginner">Iniciante (8x8, 10)</option>
+						<option value="intermediate" selected>
+							Intermediário (10x10, 15)
+						</option>
+						<option value="expert">Expert (16x16, 40)</option>
+					</select>
+				</div>
+
+				<div id="tabuleiro"></div>
+
+				<div id="mensagem-final" class="oculto">
+					<p id="texto-mensagem"></p>
+				</div>
 			</div>
 		</div>
 

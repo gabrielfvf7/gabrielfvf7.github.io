@@ -1,79 +1,198 @@
+/* style.css - Estilo Windows XP (Atualizado) */
+
+/* 1. Plano de Fundo do Windows XP */
 body {
-	font-family: Arial, sans-serif;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
 	margin: 0;
-	background-color: #f0f0f0;
+	/* Plano de Fundo Bliss do Windows XP */
+	background-image: url('https://www.wallpaperhub.app/_next/image?url=https%3A%2F%2Fcdn.wallpaperhub.app%2Fcloudcache%2Fb%2Fd%2F7%2F6%2F4%2Fb%2Fbd764bb25d49a05105060185774ba14cd2c846f7.jpg&w=4500&q=100');
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
 }
 
-.container {
+/* 2. Estilo da Janela do Windows (XP Blue) */
+.window-container {
+	background-color: #c0c0c0;
+	box-shadow: 0 0 0 1px #0a246a, 0 0 0 2px #5d7591; /* Borda externa da janela */
+	border-radius: 6px;
+	overflow: hidden;
+	width: auto; /* Ajusta-se ao tabuleiro */
+	min-width: 300px;
+}
+
+.title-bar {
+	background-color: #3875d7; /* Azul clássico */
+	background-image: linear-gradient(to right, #0055ff, #5d92ff);
+	padding: 3px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: white;
+	font-weight: bold;
+	cursor: default;
+	border-top: 1px solid #1c52b2;
+	border-left: 1px solid #1c52b2;
+	border-right: 1px solid #81a4ff;
+	user-select: none;
+}
+.title-bar-text {
+	margin-left: 5px;
+}
+.title-bar-controls button {
+	/* Estilo de botões de controle: X, -, □ */
+	background-color: #c0c0c0;
+	border: 1px solid #000;
+	padding: 0;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #808080;
+	border-bottom: 1px solid #808080;
+}
+.title-bar-controls button:active {
+	border-top: 1px solid #808080;
+	border-left: 1px solid #808080;
+	border-right: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+}
+.title-bar-controls button[aria-label='Close'] {
+	background-color: #ff0000;
+}
+
+.window-body {
+	padding: 10px;
 	text-align: center;
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-	color: #333;
+/* 3. Área de Status (Contador/Carinha) */
+.status-bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	margin-bottom: 10px;
+	padding: 5px;
+	background-color: #c0c0c0;
+	/* Borda rebaixada clássica */
+	border-top: 2px solid #808080;
+	border-left: 2px solid #808080;
+	border-right: 2px solid #fff;
+	border-bottom: 2px solid #fff;
 }
 
-#status-jogo {
-	margin-bottom: 15px;
-	font-size: 1.1em;
+/* Display Digital (Cronômetro e Bandeiras) */
+.display-box {
+	background-color: #000;
+	color: red;
+	font-family: 'Digital Display', monospace; /* Fonte para display digital */
+	font-size: 1.5em;
+	padding: 2px 5px;
+	width: 40px;
+	text-align: right;
+	/* Borda interna rebaixada do display */
+	box-shadow: inset 1px 1px #808080, inset -1px -1px #fff;
 }
 
+/* Botão de Carinha (Reiniciar) */
+.face-button {
+	width: 32px;
+	height: 32px;
+	background-color: #c0c0c0;
+	font-size: 1.5em;
+	cursor: pointer;
+	border: none;
+	padding: 0;
+	/* Borda 3D levantada */
+	border-top: 2px solid #fff;
+	border-left: 2px solid #fff;
+	border-right: 2px solid #808080;
+	border-bottom: 2px solid #808080;
+}
+.face-button:active {
+	/* Efeito de clique: botão afundado */
+	border-top: 2px solid #808080;
+	border-left: 2px solid #808080;
+	border-right: 2px solid #fff;
+	border-bottom: 2px solid #fff;
+	font-size: 1.4em; /* Simula o ícone afundando */
+}
+
+/* Seletor de Dificuldade */
+#seletor-dificuldade {
+	margin-bottom: 10px;
+	font-size: 0.9em;
+}
+
+/* 4. Tabuleiro do Jogo */
 #tabuleiro {
 	display: inline-grid;
-	/* As colunas e linhas serão definidas pelo JS com base nas dimensões */
-	border: 3px solid #666;
-	background-color: #aaa;
-	margin-bottom: 20px;
-	user-select: none; /* Evita seleção de texto durante o jogo */
+	/* Borda externa rebaixada do tabuleiro */
+	border-top: 3px solid #808080;
+	border-left: 3px solid #808080;
+	border-right: 3px solid #fff;
+	border-bottom: 3px solid #fff;
+	background-color: #c0c0c0;
+	margin-top: 5px;
+	user-select: none;
 }
 
 .celula {
-	width: 30px;
-	height: 30px;
-	background-color: #ccc;
-	border: 1px solid #999;
+	width: 20px; /* Diminui para o padrão XP */
+	height: 20px;
+	background-color: #c0c0c0;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	font-weight: bold;
-	font-size: 1.1em;
+	font-size: 1em;
 	line-height: 1;
+
+	/* Borda 3D "levantada" */
+	box-shadow: inset -1px -1px #808080, inset 1px 1px #fff;
 }
 
-/* Célula não clicada */
 .celula:not(.revelada):hover {
-	background-color: #ddd;
+	background-color: #d0d0d0;
 }
 
-/* Célula revelada */
+/* Célula revelada: Borda 3D "abaixada" e fundo mais claro */
 .celula.revelada {
-	background-color: #eee;
-	border: 1px solid #ddd;
+	background-color: #d0d0d0;
+	/* Remove o efeito 3D levantado, fica "afundado" */
+	box-shadow: inset 1px 1px #808080, inset -1px -1px #fff;
 	cursor: default;
 }
 
-/* Bomba */
+/* Ícones estilo XP */
 .celula.bomba {
-	background-color: #f00; /* Vermelho para bomba */
-	color: white;
+	background-color: #d0d0d0;
+	color: black;
+	font-size: 1.1em;
+}
+.celula.bomba.hit {
+	background-color: red; /* Bomba clicada fica vermelha */
 }
 
-/* Bandeira */
 .celula.bandeira {
-	background-color: #999;
-	color: #ff0; /* Amarelo ou outra cor para a bandeira */
+	background-color: #c0c0c0;
+	color: red;
+	font-size: 1em;
+}
+.celula.bandeira.revelada {
+	background-color: #d0d0d0;
+}
+.celula.bandeira.revelada.bomba {
+	color: black; /* Se for bomba, a bandeira fica preta (ícone XP) */
 }
 
-/* Cores para os números de minas adjacentes */
+/* Cores dos números (Minesweeper padrão) */
 .n1 {
 	color: blue;
 }
@@ -84,10 +203,10 @@ h1 {
 	color: red;
 }
 .n4 {
-	color: darkblue;
+	color: navy;
 }
 .n5 {
-	color: darkred;
+	color: maroon;
 }
 .n6 {
 	color: teal;
@@ -99,39 +218,17 @@ h1 {
 	color: gray;
 }
 
-#botao-reiniciar {
-	padding: 10px 20px;
-	font-size: 1em;
-	cursor: pointer;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	transition: background-color 0.3s;
-}
-
-#botao-reiniciar:hover {
-	background-color: #0056b3;
-}
-
+/* Mensagem final */
 #mensagem-final {
-	margin-top: 15px;
-	padding: 10px;
-	border-radius: 5px;
+	margin-top: 10px;
+	padding: 5px;
+	border-radius: 0;
 	font-weight: bold;
-	font-size: 1.2em;
-}
-
-.vitoria {
-	background-color: #d4edda;
-	color: #155724;
-	border: 1px solid #c3e6cb;
-}
-
-.derrota {
-	background-color: #f8d7da;
-	color: #721c24;
-	border: 1px solid #f5c6cb;
+	font-size: 1em;
+	border-top: 2px solid #808080;
+	border-left: 2px solid #808080;
+	border-right: 2px solid #fff;
+	border-bottom: 2px solid #fff;
 }
 
 .oculto {
