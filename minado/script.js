@@ -1,4 +1,3 @@
-// --- Variáveis de Configuração ---
 let LINHAS;
 let COLUNAS;
 let NUM_BOMBAS;
@@ -9,7 +8,6 @@ const CONFIG_DIFICULDADE = {
 	expert: { LINHAS: 16, COLUNAS: 16, BOMBAS: 40 },
 };
 
-// --- Elementos do DOM ---
 const tabuleiroElemento = document.getElementById('tabuleiro');
 const botaoReiniciar = document.getElementById('botao-reiniciar');
 const mensagemFinal = document.getElementById('mensagem-final');
@@ -18,75 +16,116 @@ const contadorBandeiras = document.getElementById('contador-bandeiras');
 const seletorDificuldade = document.getElementById('dificuldade');
 const timerElemento = document.getElementById('timer');
 
-// --- Variáveis do Jogo ---
-let tabuleiro; // Matriz 2D para a lógica do jogo
+let tabuleiro;
 let bombasRestantes;
 let jogoAtivo;
 let cronometroInterval;
 let tempoDecorrido;
 
-/**
- * Aplica a dificuldade selecionada.
- * @param {string} dificuldade - Chave de dificuldade ('beginner', 'intermediate', 'expert').
- */
+const ASSETS_PATHS = {
+	0: 'empty.png',
+	1: 'open1.png',
+	2: 'open2.png',
+	3: 'open3.png',
+	4: 'open4.png',
+	5: 'open5.png',
+	6: 'open6.png',
+	7: 'open7.png',
+	8: 'open8.png',
+
+	FLAG: 'flag.png',
+	QUESTION: 'question.png',
+	MINE: 'mine-ceil.png',
+	MINE_DEATH: 'mine-death.png',
+	MISFLAGGED: 'misflagged.png',
+
+	SMILE: 'smile.png',
+	OHH: 'ohh.png',
+	DEAD: 'dead.png',
+	WIN: 'win.png',
+
+	digit0: 'digit0.png',
+	digit1: 'digit1.png',
+	digit2: 'digit2.png',
+	digit3: 'digit3.png',
+	digit4: 'digit4.png',
+	digit5: 'digit5.png',
+	digit6: 'digit6.png',
+	digit7: 'digit7.png',
+	digit8: 'digit8.png',
+	digit9: 'digit9.png',
+};
+
+function getAssetHTML(assetKey) {
+	const fileName = ASSETS_PATHS[assetKey];
+	if (fileName) {
+		return `<img src="./assets/${fileName}" alt="${assetKey}" class="asset-icon">`;
+	}
+	return '';
+}
+
+function renderizarContador(numero) {
+	let num = Math.min(999, Math.max(0, numero));
+	const numStr = String(num).padStart(3, '0');
+
+	let html = '';
+
+	for (let i = 0; i < 3; i++) {
+		const digito = parseInt(numStr[i]);
+		const fileName = ASSETS_PATHS[`digit${digito}`];
+		if (fileName) {
+			html += `<img src="./assets/${fileName}" alt="${digito}">`;
+		}
+	}
+	return html;
+}
+
 function aplicarDificuldade(dificuldade) {
 	const config = CONFIG_DIFICULDADE[dificuldade];
 	LINHAS = config.LINHAS;
 	COLUNAS = config.COLUNAS;
 	NUM_BOMBAS = config.BOMBAS;
 
-	// Redefine o layout do grid no DOM
 	tabuleiroElemento.style.gridTemplateColumns = `repeat(${COLUNAS}, 1fr)`;
 	tabuleiroElemento.style.gridTemplateRows = `repeat(${LINHAS}, 1fr)`;
 }
 
-// --- Funções de Inicialização e Lógica ---
-
-/**
- * Inicializa a matriz do tabuleiro com valores iniciais e
- * distribui as bombas.
- */
 function inicializarTabuleiro() {
 	tabuleiro = [];
 	bombasRestantes = NUM_BOMBAS;
 	jogoAtivo = true;
 	mensagemFinal.classList.add('oculto');
-	botaoReiniciar.textContent = '😊'; // Carinha feliz
+
+	botaoReiniciar.innerHTML = getAssetHTML('SMILE');
+	botaoReiniciar.classList.remove('derrota', 'vitoria');
 
 	resetarCronometro();
 
-	// 1. Cria a matriz inicial preenchida com 0 (zero)
 	for (let i = 0; i < LINHAS; i++) {
 		tabuleiro[i] = new Array(COLUNAS).fill(0);
 	}
 
-	// 2. Distribui as bombas (-1)
 	let bombasColocadas = 0;
 	while (bombasColocadas < NUM_BOMBAS) {
 		const linha = Math.floor(Math.random() * LINHAS);
 		const coluna = Math.floor(Math.random() * COLUNAS);
 
-		// Se a célula ainda não tem bomba, coloque uma.
 		if (tabuleiro[linha][coluna] !== -1) {
-			tabuleiro[linha][coluna] = -1; // -1 representa uma bomba
+			tabuleiro[linha][coluna] = -1;
 			bombasColocadas++;
 		}
 	}
 
-	// 3. Calcula os números vizinhos
 	for (let i = 0; i < LINHAS; i++) {
 		for (let j = 0; j < COLUNAS; j++) {
 			if (tabuleiro[i][j] === -1) {
-				continue; // Pula a bomba
+				continue;
 			}
 			tabuleiro[i][j] = contarBombasVizinhas(i, j);
 		}
 	}
 }
 
-/**
- * Conta quantas bombas existem nas 8 células vizinhas.
- */
 function contarBombasVizinhas(r, c) {
 	let contagem = 0;
 	for (let i = -1; i <= 1; i++) {
@@ -109,26 +148,27 @@ function contarBombasVizinhas(r, c) {
 	return contagem;
 }
 
-/**
- * Cria a representação visual do tabuleiro no DOM.
- */
 function criarDOMTabuleiro() {
 	tabuleiroElemento.innerHTML = '';
-	contadorBandeiras.textContent = String(bombasRestantes).padStart(3, '0');
+	contadorBandeiras.innerHTML = renderizarContador(bombasRestantes);
 
 	for (let i = 0; i < LINHAS; i++) {
 		for (let j = 0; j < COLUNAS; j++) {
 			const celula = document.createElement('div');
 			celula.classList.add('celula');
-			celula.dataset.linha = i;
-			celula.dataset.coluna = j;
 
-			// Tratamento de clique esquerdo (revelar)
+			celula.addEventListener('mousedown', (event) => {
+				if (jogoAtivo && event.button === 0)
+					botaoReiniciar.innerHTML = getAssetHTML('OHH');
+			});
+			celula.addEventListener('mouseup', () => {
+				if (jogoAtivo) botaoReiniciar.innerHTML = getAssetHTML('SMILE');
+			});
+
 			celula.addEventListener('click', () => {
 				revelarCelula(i, j);
 			});
 
-			// Tratamento de clique direito (bandeira/interrogação)
 			celula.addEventListener('contextmenu', (e) => {
 				e.preventDefault();
 				colocarBandeira(celula);
@@ -139,23 +179,18 @@ function criarDOMTabuleiro() {
 	}
 }
 
-/**
- * Reinicia o jogo.
- */
 function iniciarJogo() {
 	aplicarDificuldade(seletorDificuldade.value);
 	inicializarTabuleiro();
 	criarDOMTabuleiro();
 }
 
-// --- Funções do Cronômetro ---
-
 function iniciarCronometro() {
 	if (cronometroInterval) return;
 	cronometroInterval = setInterval(() => {
 		tempoDecorrido++;
 		if (tempoDecorrido > 999) tempoDecorrido = 999;
-		timerElemento.textContent = String(tempoDecorrido).padStart(3, '0');
+		timerElemento.innerHTML = renderizarContador(tempoDecorrido);
 	}, 1000);
 }
 
@@ -167,23 +202,18 @@ function pararCronometro() {
 function resetarCronometro() {
 	pararCronometro();
 	tempoDecorrido = 0;
-	timerElemento.textContent = '000';
+	timerElemento.innerHTML = renderizarContador(0);
 }
 
-/**
- * Trata o clique esquerdo (revelar célula).
- */
 function revelarCelula(r, c) {
 	if (!jogoAtivo) return;
 
-	// Inicia o cronômetro no primeiro clique
 	if (tempoDecorrido === 0) {
 		iniciarCronometro();
 	}
 
 	const celulaDOM = tabuleiroElemento.children[r * COLUNAS + c];
 
-	// Se já estiver revelada ou tiver bandeira, não faz nada (interrogação pode ser revelada)
 	if (
 		celulaDOM.classList.contains('revelada') ||
 		celulaDOM.classList.contains('bandeira')
@@ -191,10 +221,9 @@ function revelarCelula(r, c) {
 		return;
 	}
 
-	// Se tiver interrogação, remove a interrogação antes de revelar
 	if (celulaDOM.classList.contains('interrogacao')) {
 		celulaDOM.classList.remove('interrogacao');
-		celulaDOM.textContent = '';
+		celulaDOM.innerHTML = '';
 	}
 
 	celulaDOM.classList.add('revelada');
@@ -202,21 +231,17 @@ function revelarCelula(r, c) {
 	const valor = tabuleiro[r][c];
 
 	if (valor === -1) {
-		// --- Bomba! Fim de jogo ---
-		celulaDOM.classList.add('bomba', 'hit'); // 'hit' para a bomba clicada
-		celulaDOM.innerHTML = '●'; // Ícone da bomba XP
-		fimDeJogo(false); // Derrota
+		celulaDOM.classList.add('bomba', 'hit');
+		celulaDOM.innerHTML = getAssetHTML('MINE_DEATH');
+		fimDeJogo(false);
 		return;
 	}
 
-	if (valor > 0) {
-		// --- Número vizinho ---
-		celulaDOM.textContent = valor;
-		celulaDOM.classList.add(`n${valor}`); // Adiciona classe para cor do número
+	if (valor >= 0) {
+		celulaDOM.innerHTML = getAssetHTML(valor);
 	}
 
 	if (valor === 0) {
-		// --- Vazio! Revelação em cascata (Flood Fill) ---
 		for (let i = -1; i <= 1; i++) {
 			for (let j = -1; j <= 1; j++) {
 				const vizinhoLinha = r + i;
@@ -228,7 +253,7 @@ function revelarCelula(r, c) {
 					vizinhoColuna >= 0 &&
 					vizinhoColuna < COLUNAS
 				) {
-					revelarCelula(vizinhoLinha, vizinhoColuna); // Chamada recursiva
+					revelarCelula(vizinhoLinha, vizinhoColuna);
 				}
 			}
 		}
@@ -238,14 +263,11 @@ function revelarCelula(r, c) {
 }
 
 /**
- * Trata o clique direito (colocar/remover bandeira/interrogação).
- * Implementa o ciclo: Fechada -> Bandeira -> Interrogação -> Fechada.
- * @param {HTMLElement} celulaDOM - O elemento DOM da célula.
+ * LÓGICA CORRIGIDA: Contagem de bombasRestantes só muda ao adicionar/remover FLAG.
  */
 function colocarBandeira(celulaDOM) {
 	if (!jogoAtivo || celulaDOM.classList.contains('revelada')) return;
 
-	// Inicia o cronômetro no primeiro clique (se ainda não começou)
 	if (tempoDecorrido === 0) {
 		iniciarCronometro();
 	}
@@ -257,29 +279,26 @@ function colocarBandeira(celulaDOM) {
 		// 1. De Bandeira para Interrogação
 		celulaDOM.classList.remove('bandeira');
 		celulaDOM.classList.add('interrogacao');
-		celulaDOM.textContent = '?';
-		// O contador de bombas (bombasRestantes) NÃO muda aqui.
+		celulaDOM.innerHTML = getAssetHTML('QUESTION');
+		// A bandeira foi removida: Aumenta a contagem de bombas restantes.
+		bombasRestantes++;
 	} else if (temInterrogacao) {
 		// 2. De Interrogação para Fechada
 		celulaDOM.classList.remove('interrogacao');
-		celulaDOM.textContent = '';
-		// Como a bandeira foi usada no passo anterior (Fechada -> Bandeira), devolvemos
-		// a contagem de bandeiras aqui, quando a célula volta a ser vazia.
-		bombasRestantes++;
+		celulaDOM.innerHTML = '';
+		// Contador NÃO é alterado aqui, pois a célula estava apenas marcada como incerta.
 	} else if (bombasRestantes > 0) {
 		// 3. De Fechada para Bandeira (se houver bandeiras disponíveis)
 		celulaDOM.classList.add('bandeira');
-		celulaDOM.textContent = '▲'; // Ícone da bandeira XP
+		celulaDOM.innerHTML = getAssetHTML('FLAG');
+		// A bandeira foi adicionada: Diminui a contagem de bombas restantes.
 		bombasRestantes--;
 	}
 
-	contadorBandeiras.textContent = String(bombasRestantes).padStart(3, '0');
+	contadorBandeiras.innerHTML = renderizarContador(bombasRestantes);
 	verificarVitoria();
 }
 
-/**
- * Verifica se todas as células não-bomba foram reveladas.
- */
 function verificarVitoria() {
 	let celulasReveladas = 0;
 	const totalCelulas = LINHAS * COLUNAS;
@@ -290,77 +309,68 @@ function verificarVitoria() {
 		}
 	}
 
-	// Condição de vitória: Total de células - Número de bombas = Células reveladas
 	if (celulasReveladas === totalCelulas - NUM_BOMBAS) {
 		fimDeJogo(true);
 	}
 }
 
-/**
- * Finaliza o jogo.
- */
 function fimDeJogo(vitoria) {
 	jogoAtivo = false;
 	pararCronometro();
 
-	// Revela todas as bombas e atualiza a carinha
 	if (!vitoria) {
-		// Derrota
-		botaoReiniciar.textContent = '😞'; // Carinha triste
+		botaoReiniciar.innerHTML = getAssetHTML('DEAD');
 		for (let i = 0; i < LINHAS; i++) {
 			for (let j = 0; j < COLUNAS; j++) {
 				const celulaDOM = tabuleiroElemento.children[i * COLUNAS + j];
 
 				if (tabuleiro[i][j] === -1) {
-					// Mostra a bomba se não tiver bandeira
-					if (!celulaDOM.classList.contains('bandeira')) {
+					if (
+						!celulaDOM.classList.contains('hit') &&
+						!celulaDOM.classList.contains('bandeira')
+					) {
 						celulaDOM.classList.add('revelada', 'bomba');
-						celulaDOM.textContent = '●';
+						celulaDOM.innerHTML = getAssetHTML('MINE');
 					}
-					// Remove interrogação para revelar a bomba
-					if (celulaDOM.classList.contains('interrogacao')) {
-						celulaDOM.classList.remove('interrogacao');
-						celulaDOM.textContent = '●';
+					if (celulaDOM.classList.contains('bandeira')) {
+						celulaDOM.classList.add('revelada');
 					}
 				} else if (celulaDOM.classList.contains('bandeira')) {
-					// Mostra bandeira errada (X)
 					celulaDOM.classList.add('revelada');
-					celulaDOM.textContent = '❌';
+					celulaDOM.innerHTML = getAssetHTML('MISFLAGGED');
+				} else if (celulaDOM.classList.contains('interrogacao')) {
+					celulaDOM.classList.remove('interrogacao');
+					celulaDOM.innerHTML = '';
 				}
-				// Garante que todas as células sejam reveláveis (para remover o cursor de clique)
 				celulaDOM.classList.add('revelada');
 			}
 		}
 	} else {
-		// Vitória
-		botaoReiniciar.textContent = '😎'; // Carinha de óculos
-		// Bandeira todas as bombas restantes
+		botaoReiniciar.innerHTML = getAssetHTML('WIN');
 		for (let i = 0; i < LINHAS; i++) {
 			for (let j = 0; j < COLUNAS; j++) {
 				const celulaDOM = tabuleiroElemento.children[i * COLUNAS + j];
-				// Remove qualquer interrogação
 				celulaDOM.classList.remove('interrogacao');
-				// Coloca bandeira nas bombas não marcadas
+
 				if (
 					tabuleiro[i][j] === -1 &&
 					!celulaDOM.classList.contains('bandeira')
 				) {
 					celulaDOM.classList.add('bandeira');
-					celulaDOM.textContent = '▲';
+					celulaDOM.innerHTML = getAssetHTML('FLAG');
 				}
 				celulaDOM.classList.add('revelada');
 			}
 		}
 		bombasRestantes = 0;
-		contadorBandeiras.textContent = '000';
+		contadorBandeiras.innerHTML = renderizarContador(0);
 	}
 
-	// Exibe a mensagem final
 	mensagemFinal.classList.remove('oculto');
 	mensagemFinal.classList.remove('vitoria', 'derrota');
 
 	if (vitoria) {
-		textoMensagem.textContent = `🎉 Você venceu em ${tempoDecorrido}s! 🎉`;
+		textoMensagem.textContent = `🎉 Parabéns! Você venceu em ${tempoDecorrido}s! 🎉`;
 		mensagemFinal.classList.add('vitoria');
 	} else {
 		textoMensagem.textContent = '💥 Game Over! 💥';
@@ -368,13 +378,10 @@ function fimDeJogo(vitoria) {
 	}
 }
 
-// --- Event Listeners ---
 botaoReiniciar.addEventListener('click', iniciarJogo);
 seletorDificuldade.addEventListener('change', iniciarJogo);
 
-// --- Início do Jogo ao carregar a página ---
 document.addEventListener('DOMContentLoaded', () => {
-	// Garante que a dificuldade inicial seja aplicada antes de iniciar
 	aplicarDificuldade(seletorDificuldade.value);
 	iniciarJogo();
 });
