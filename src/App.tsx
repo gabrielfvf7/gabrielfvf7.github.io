@@ -26,14 +26,6 @@ const Portfolio: React.FC = () => {
   const desktopIconsRef = useRef<DesktopIconsRef>(null);
   const windowRefs = useRef<Map<string, PortfolioWindowRef>>(new Map());
 
-  // Update favicon based on theme
-  useEffect(() => {
-    const favicon = document.getElementById('favicon') as HTMLLinkElement;
-    if (favicon) {
-      favicon.href = theme === 'xp' ? '/favicon-xp.png' : '/favicon-modern.png';
-    }
-  }, [theme]);
-
   const handleDesktopClick = () => {
     closeStartMenu();
     desktopIconsRef.current?.clearSelection();
