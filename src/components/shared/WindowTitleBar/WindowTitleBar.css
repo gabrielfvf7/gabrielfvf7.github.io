@@ -1,0 +1,31 @@
+.window-title-bar {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to bottom, #0054e3, #0040dc);
+  color: white;
+  padding: 2px 4px;
+  font-size: 11px;
+  font-family: 'MS Sans Serif', sans-serif;
+  height: 18px;
+  border-bottom: 1px solid #000040;
+}
+
+.window-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+
+.window-title {
+  flex: 1;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.window-controls {
+  display: flex;
+  gap: 1px;
+  margin-left: auto;
+}

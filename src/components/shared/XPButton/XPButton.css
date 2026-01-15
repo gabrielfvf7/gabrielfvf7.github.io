@@ -1,0 +1,37 @@
+.xp-button {
+  border: 1px solid;
+  border-color: #0a0e27 #dfdfdf #dfdfdf #0a0e27;
+  background: #ece9d8;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-family: Tahoma, sans-serif;
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.1s;
+}
+
+.xp-button:hover {
+  background: #f0f0f0;
+}
+
+.xp-button:active {
+  border-color: #dfdfdf #0a0e27 #0a0e27 #dfdfdf;
+  background: #d0d0d0;
+}
+
+.xp-button--primary {
+  background: #316ac5;
+  color: white;
+  border-color: #1e4d8b #4a7bc8 #4a7bc8 #1e4d8b;
+}
+
+.xp-button--primary:hover {
+  background: #427bd4;
+}
+
+.xp-button--primary:active {
+  border-color: #4a7bc8 #1e4d8b #1e4d8b #4a7bc8;
+  background: #2659a2;
+}
