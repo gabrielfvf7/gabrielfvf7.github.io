@@ -1,40 +1,31 @@
 .icon-button {
-  border: 1px solid;
-  border-color: #fff #848284 #848284 #fff;
-  background: #c0c0c0;
-  width: 16px;
-  height: 14px;
-  font-size: 11px;
-  color: #000;
+  width: 21px;
+  height: 21px;
+  background: none;
+  border: none;
   cursor: pointer;
   padding: 0;
-  margin: 0 1px;
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
+  flex-shrink: 0;
 }
 
-.icon-button:hover {
-  background: #ddd;
+.icon-button img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-.icon-button:active {
-  border-color: #848284 #fff #fff #848284;
-  background: #a0a0a0;
+.icon-button:hover img {
+  filter: brightness(1.1);
+}
+
+.icon-button:active img {
+  filter: brightness(0.9);
 }
 
 .icon-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.icon-button--close:hover {
-  background: #ff6b6b;
-  color: #fff;
-}
-
-.icon-button--minimize,
-.icon-button--maximize {
-  font-family: 'MS Sans Serif', sans-serif;
 }

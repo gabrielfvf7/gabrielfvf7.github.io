@@ -1,31 +1,42 @@
 .window-title-bar {
   display: flex;
   align-items: center;
-  background: linear-gradient(to bottom, #0054e3, #0040dc);
+  background: linear-gradient(180deg, #0997ff, #0053ee 8%, #0050ee 40%, #06f 88%, #06f 93%, #005bff 95%, #003dd7 96%, #003dd7);
   color: white;
-  padding: 2px 4px;
-  font-size: 11px;
-  font-family: 'MS Sans Serif', sans-serif;
-  height: 18px;
-  border-bottom: 1px solid #000040;
+  padding: 0 4px;
+  font-size: 12px;
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  font-weight: 600;
+  text-shadow: none;
+  line-height: 1;
+  height: 28px;
+  flex-shrink: 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .window-icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
+  width: 20px;
+  height: 20px;
+  margin-left: 4px;
+  flex-shrink: 0;
 }
 
 .window-title {
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
   flex: 1;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  padding: 0 8px;
+  user-select: none;
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  text-shadow: none;
+  line-height: 1;
 }
 
 .window-controls {
   display: flex;
-  gap: 1px;
-  margin-left: auto;
+  gap: 2px;
+  margin-right: 2px;
+  flex-shrink: 0;
 }
