@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import type { OpenWindow } from '../../types';
 import { useDraggable } from '../../hooks/useDraggable';
+import { useResizable } from '../../hooks/useResizable';
 import type { MouseEvent } from 'react';
 
 interface UsePortfolioWindowProps {
@@ -12,6 +13,7 @@ interface UsePortfolioWindowProps {
 export const usePortfolioWindow = ({ window, index, onBringToFront }: UsePortfolioWindowProps) => {
   const [activeTab] = useState(window.tab);
   const [isMaximized, setIsMaximized] = useState(false);
+  const windowRef = useRef<HTMLDivElement>(null);
 
   const offsetX = 40 + index * 30;
   const offsetY = 60 + index * 30;
@@ -22,13 +24,23 @@ export const usePortfolioWindow = ({ window, index, onBringToFront }: UsePortfol
     disabled: isMaximized,
   });
 
+  const { size, isResizing, handleResizeStart, resetSize } = useResizable({
+    initialWidth: 800,
+    initialHeight: 600,
+  });
+
   const handleMouseDown = (e: MouseEvent) => {
     onBringToFront(window.id);
     dragMouseDown(e);
   };
 
   const handleMaximize = () => {
-    setIsMaximized(!isMaximized);
+    if (!isMaximized) {
+      setIsMaximized(true);
+    } else {
+      setIsMaximized(false);
+      resetSize();
+    }
   };
 
   const restore = () => {
@@ -53,7 +65,12 @@ export const usePortfolioWindow = ({ window, index, onBringToFront }: UsePortfol
     isMaximized,
     positionX: position.x,
     positionY: position.y,
+    width: size.width,
+    height: size.height,
+    windowRef,
+    isResizing,
     handleMaximize,
+    handleResizeStart,
     restore,
     getWindowIcon,
     handleMouseDown,

@@ -15,6 +15,11 @@
   transform-origin: center center;
 }
 
+.minesweeper-window.resizing {
+  transition: none;
+  user-select: none;
+}
+
 .minesweeper-window.minimized {
   opacity: 0;
   transform: scale(0.1);

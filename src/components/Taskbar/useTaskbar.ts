@@ -8,6 +8,7 @@ export const useTaskbar = () => {
       case 'experience': return '/icons/Scheduled Tasks.png';
       case 'skills': return '/icons/System Information.png';
       case 'minesweeper': return '/icons/Minesweeper.png';
+      case 'paint': return '/icons/Paint.png';
       default: return '/icons/Default.png';
     }
   };

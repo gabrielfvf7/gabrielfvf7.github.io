@@ -46,6 +46,7 @@ export const DESKTOP_ICONS = [
   { id: 'experience', label: 'Experiência', icon: '/icons/Scheduled Tasks.png' },
   { id: 'skills', label: 'Skills', icon: '/icons/System Information.png' },
   { id: 'minesweeper', label: 'Campo Minado', icon: '/icons/Minesweeper.png' },
+  { id: 'paint', label: 'Paint', icon: '/icons/Paint.png' },
 ];
 
 export const WINDOW_TITLES: Record<string, string> = {
@@ -54,4 +55,5 @@ export const WINDOW_TITLES: Record<string, string> = {
   experience: 'Experiência',
   skills: 'Skills',
   minesweeper: 'Minesweeper',
+  paint: 'Paint',
 };

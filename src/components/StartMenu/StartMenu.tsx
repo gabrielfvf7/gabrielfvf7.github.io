@@ -5,11 +5,13 @@ import './StartMenu.css';
 interface StartMenuProps {
   isOpen: boolean;
   onOpenWindow: (tab: string) => void;
+  onClose: () => void;
 }
 
 export const StartMenu: React.FC<StartMenuProps> = ({ 
   isOpen, 
-  onOpenWindow
+  onOpenWindow,
+  onClose
 }) => {
   if (!isOpen) return null;
 
@@ -70,6 +72,7 @@ export const StartMenu: React.FC<StartMenuProps> = ({
                 onClick={(e) => {
                   e.stopPropagation();
                   onOpenWindow(program.id);
+                  onClose();
                 }}
                 className="menu-item"
               >

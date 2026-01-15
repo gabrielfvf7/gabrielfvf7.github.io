@@ -16,9 +16,11 @@ import {
   ModernPortfolio
 } from './components';
 import { MinesweeperWindow } from './components/MinesweeperWindow';
+import { PaintWindow } from './components/PaintWindow';
 import type { DesktopIconsRef } from './components/DesktopIcons/DesktopIcons';
 import type { PortfolioWindowRef } from './components/PortfolioWindow/PortfolioWindow';
 import type { MinesweeperWindowRef } from './components/MinesweeperWindow';
+import type { PaintWindowRef } from './components/PaintWindow';
 
 const Portfolio: React.FC = () => {
   const { openWindows, openWindow, closeWindow, bringToFront, toggleMinimize } = useWindowManager();
@@ -26,7 +28,7 @@ const Portfolio: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const currentTime = useTime();
   const desktopIconsRef = useRef<DesktopIconsRef>(null);
-  const windowRefs = useRef<Map<string, PortfolioWindowRef | MinesweeperWindowRef>>(new Map());
+  const windowRefs = useRef<Map<string, PortfolioWindowRef | MinesweeperWindowRef | PaintWindowRef>>(new Map());
 
   const handleDesktopClick = () => {
     closeStartMenu();
@@ -125,6 +127,25 @@ const Portfolio: React.FC = () => {
               />
             );
           }
+          if (window.tab === 'paint') {
+            return (
+              <PaintWindow 
+                key={window.id}
+                ref={(ref) => {
+                  if (ref) {
+                    windowRefs.current.set(window.id, ref);
+                  } else {
+                    windowRefs.current.delete(window.id);
+                  }
+                }}
+                window={window} 
+                index={index}
+                onClose={closeWindow}
+                onBringToFront={bringToFront}
+                onMinimize={toggleMinimize}
+              />
+            );
+          }
           return (
             <PortfolioWindow 
               key={window.id}
@@ -148,6 +169,7 @@ const Portfolio: React.FC = () => {
       <StartMenu 
         isOpen={startMenuOpen} 
         onOpenWindow={openWindow}
+        onClose={closeStartMenu}
       />
       
       <Taskbar 

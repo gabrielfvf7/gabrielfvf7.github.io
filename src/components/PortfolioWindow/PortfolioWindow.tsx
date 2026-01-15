@@ -3,6 +3,7 @@ import type { OpenWindow } from '../../types';
 import { usePortfolioWindow } from './usePortfolioWindow';
 import { WindowTitleBar } from '../shared/WindowTitleBar';
 import { WindowMenuBar } from '../shared/WindowMenuBar';
+import { ResizeHandles } from '../ResizeHandles';
 import { AboutSection, ProjectsSection, SkillsSection, ExperienceSection } from './sections';
 import './PortfolioWindow.css';
 
@@ -25,7 +26,12 @@ export const PortfolioWindow = forwardRef<PortfolioWindowRef, PortfolioWindowPro
       isMaximized,
       positionX,
       positionY,
+      width,
+      height,
+      windowRef,
+      isResizing,
       handleMaximize,
+      handleResizeStart,
       restore,
       getWindowIcon,
       handleMouseDown,
@@ -37,10 +43,13 @@ export const PortfolioWindow = forwardRef<PortfolioWindowRef, PortfolioWindowPro
 
   return (
       <div 
-        className={`portfolio-window ${window.isMinimized ? 'minimized' : ''} ${isMaximized ? 'maximized' : ''}`}
+        ref={windowRef}
+        className={`portfolio-window ${window.isMinimized ? 'minimized' : ''} ${isMaximized ? 'maximized' : ''} ${isResizing ? 'resizing' : ''}`}
         style={{ 
           left: isMaximized ? '0px' : `${positionX}px`,
           top: isMaximized ? '0px' : `${positionY}px`,
+          width: isMaximized ? '100vw' : `${width}px`,
+          height: isMaximized ? 'calc(100vh - 40px)' : `${height}px`,
           zIndex: window.zIndex,
         }}
         onMouseDown={handleMouseDown}
@@ -62,6 +71,8 @@ export const PortfolioWindow = forwardRef<PortfolioWindowRef, PortfolioWindowPro
         {activeTab === 'skills' && <SkillsSection />}
         {activeTab === 'experience' && <ExperienceSection />}
       </div>
+
+      {!isMaximized && <ResizeHandles onResizeStart={handleResizeStart} windowRef={windowRef} />}
     </div>
   );
 });

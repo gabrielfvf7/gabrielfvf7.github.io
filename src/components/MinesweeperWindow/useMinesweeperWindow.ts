@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { initializeMinesweeper } from '../../utils/minesweeperGame';
 import { useDraggable } from '../../hooks/useDraggable';
+import { useResizable } from '../../hooks/useResizable';
 import type { OpenWindow } from '../../types';
 import type { MouseEvent } from 'react';
 
@@ -14,6 +15,7 @@ export const useMinesweeperWindow = ({ window: gameWindow, index, onBringToFront
   const [isMaximized, setIsMaximized] = useState(false);
   const [showGameMenu, setShowGameMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const windowRef = useRef<HTMLDivElement>(null);
   const gameControlsRef = useRef<{ 
     cleanup: () => void; 
     changeDifficulty: (level: 'beginner' | 'intermediate' | 'expert') => void 
@@ -28,13 +30,25 @@ export const useMinesweeperWindow = ({ window: gameWindow, index, onBringToFront
     disabled: isMaximized,
   });
 
+  const { size, isResizing, handleResizeStart, resetSize } = useResizable({
+    initialWidth: 300,
+    initialHeight: 400,
+    minWidth: 250,
+    minHeight: 350,
+  });
+
   const handleMouseDown = (e: MouseEvent) => {
     onBringToFront(gameWindow.id);
     dragMouseDown(e);
   };
 
   const handleMaximize = () => {
-    setIsMaximized(!isMaximized);
+    if (!isMaximized) {
+      setIsMaximized(true);
+    } else {
+      setIsMaximized(false);
+      resetSize();
+    }
   };
 
   const handleResetGame = () => {
@@ -96,9 +110,14 @@ export const useMinesweeperWindow = ({ window: gameWindow, index, onBringToFront
     isMaximized,
     showGameMenu,
     menuRef,
+    windowRef,
     positionX: position.x,
     positionY: position.y,
+    width: size.width,
+    height: size.height,
+    isResizing,
     handleMaximize,
+    handleResizeStart,
     handleResetGame,
     handleChangeDifficulty,
     handleHelp,

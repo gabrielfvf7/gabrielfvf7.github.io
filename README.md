@@ -56,6 +56,7 @@ src/
 │   ├── Desktop/
 │   ├── DesktopIcons/
 │   ├── MinesweeperWindow/
+│   ├── PaintWindow/    # Janela do Paint (JSPaint)
 │   ├── ModernPortfolio/
 │   ├── PortfolioWindow/
 │   ├── StartMenu/
@@ -67,6 +68,7 @@ src/
 └── utils/             # Funções utilitárias
 
 public/                # Assets públicos
+  └── jspaint/         # JSPaint - MS Paint clone
 docs/                  # Documentação
 ```
 
@@ -76,9 +78,18 @@ docs/                  # Documentação
 - 💼 Portfolio moderno alternativo
 - 🎨 Troca dinâmica de temas
 - 🎮 Campo Minado integrado (versão XP)
+- �️ Paint funcional (MS Paint clone)
 - 🔄 Minimizar/Maximizar janelas
-- ⏰ Relógio funcional na taskbar
+- ↔️ Arrastar janelas pela tela- 📏 **Redimensionar janelas pelas bordas e cantos** (apenas janelas não maximizadas)- ⏰ Relógio funcional na taskbar
 - 📊 Informações profissionais interativas
+
+## 🎯 Créditos e Atribuições
+
+Este projeto utiliza os seguintes recursos de terceiros:
+
+- **[JSPaint](https://github.com/1j01/jspaint)** por Isaiah Odhner - Clone open-source do MS Paint clássico
+  - Licença: MIT License
+  - Usado para implementar a funcionalidade do Paint no portfolio
 
 ## 📝 Documentação Adicional
 

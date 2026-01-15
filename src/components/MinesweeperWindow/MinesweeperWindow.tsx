@@ -1,6 +1,7 @@
 import { useImperativeHandle, forwardRef } from 'react';
 import type { OpenWindow } from '../../types';
 import { useMinesweeperWindow } from './useMinesweeperWindow';
+import { ResizeHandles } from '../ResizeHandles';
 import './MinesweeperWindow.css';
 
 interface MinesweeperWindowProps {
@@ -21,9 +22,14 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
       isMaximized,
       showGameMenu,
       menuRef,
+      windowRef,
       positionX,
       positionY,
+      width,
+      height,
+      isResizing,
       handleMaximize,
+      handleResizeStart,
       handleResetGame,
       handleChangeDifficulty,
       handleHelp,
@@ -36,10 +42,13 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
 
     return (
       <div 
-        className={`minesweeper-window ${gameWindow.isMinimized ? 'minimized' : ''} ${isMaximized ? 'maximized' : ''}`}
+        ref={windowRef}
+        className={`minesweeper-window ${gameWindow.isMinimized ? 'minimized' : ''} ${isMaximized ? 'maximized' : ''} ${isResizing ? 'resizing' : ''}`}
         style={{ 
           left: isMaximized ? '0px' : `${positionX}px`,
           top: isMaximized ? '0px' : `${positionY}px`,
+          width: isMaximized ? '100vw' : `${width}px`,
+          height: isMaximized ? 'calc(100vh - 40px)' : `${height}px`,
           zIndex: gameWindow.zIndex,
         }}
         onMouseDown={handleMouseDown}
@@ -142,6 +151,8 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
             </div>
           </div>
         </div>
+
+        {!isMaximized && <ResizeHandles onResizeStart={handleResizeStart} windowRef={windowRef as React.RefObject<HTMLDivElement>} />}
       </div>
     );
   }
