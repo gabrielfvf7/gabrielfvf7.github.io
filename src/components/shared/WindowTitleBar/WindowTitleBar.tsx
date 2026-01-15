@@ -1,6 +1,8 @@
 ﻿import React from 'react';
+import IconButton from '../IconButton';
+import './WindowTitleBar.css';
 
-interface WindowTitleBarProps {
+export interface WindowTitleBarProps {
   icon: string;
   title: string;
   isMaximized: boolean;
@@ -22,40 +24,48 @@ export const WindowTitleBar: React.FC<WindowTitleBarProps> = ({
       <img src={icon} alt="" className="window-icon" />
       <div className="window-title">{title}</div>
       <div className="window-controls">
-        <button 
-          aria-label="Minimize" 
-          className="window-control-btn minimize-btn"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
+        <IconButton 
+          variant="minimize"
+          title="Minimize" 
+          onClick={(e?: React.MouseEvent) => {
+            if (e) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
             onMinimize();
           }}
         >
           <img src="/Minimize.png" alt="" />
-        </button>
-        <button 
-          aria-label="Maximize" 
-          className="window-control-btn maximize-btn"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
+        </IconButton>
+        <IconButton 
+          variant="maximize"
+          title="Maximize" 
+          onClick={(e?: React.MouseEvent) => {
+            if (e) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
             onMaximize();
           }}
         >
           <img src={isMaximized ? "/Restore.png" : "/Maximize.png"} alt="" />
-        </button>
-        <button 
-          aria-label="Close" 
-          className="window-control-btn close-btn"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
+        </IconButton>
+        <IconButton 
+          variant="close"
+          title="Close" 
+          onClick={(e?: React.MouseEvent) => {
+            if (e) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
             onClose();
           }}
         >
           <img src="/Exit.png" alt="" />
-        </button>
+        </IconButton>
       </div>
     </div>
   );
 };
+
+export default WindowTitleBar;

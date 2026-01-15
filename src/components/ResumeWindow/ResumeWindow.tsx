@@ -1,7 +1,7 @@
 ﻿import { useImperativeHandle, forwardRef } from 'react';
 import type { OpenWindow } from '../../types';
 import { useResumeWindow } from './useResumeWindow';
-import { WindowTitleBar } from '../shared/WindowTitleBar';
+import WindowTitleBar from '../shared/WindowTitleBar';
 import { ResizeHandles } from '../ResizeHandles';
 import './ResumeWindow.css';
 

@@ -1,7 +1,7 @@
 ﻿import { useImperativeHandle, forwardRef } from 'react';
 import type { OpenWindow } from '../../types';
 import { usePortfolioWindow } from './usePortfolioWindow';
-import { WindowTitleBar } from '../shared/WindowTitleBar';
+import WindowTitleBar from '../shared/WindowTitleBar';
 import { WindowMenuBar } from '../shared/WindowMenuBar';
 import { ResizeHandles } from '../ResizeHandles';
 import { AboutSection, ProjectsSection, SkillsSection, ExperienceSection } from './sections';

@@ -21,3 +21,4 @@ export const ContentBox: React.FC<ContentBoxProps> = ({
 };
 
 export default ContentBox;
+export type { ContentBoxProps };

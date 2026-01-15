@@ -1,4 +1,3 @@
-import React from 'react';
 import './LoadingSpinner.css';
 
 interface LoadingSpinnerProps {
@@ -18,5 +17,4 @@ export default function LoadingSpinner({
   );
 }
 
-export default LoadingSpinner;
 export type { LoadingSpinnerProps };

@@ -1,6 +1,5 @@
 import React from 'react';
 import './XPButton.css';
-import './XPButton.css';
 
 interface XPButtonProps {
   href?: string;
@@ -12,7 +11,7 @@ interface XPButtonProps {
   variant?: 'primary' | 'secondary';
 }
 
-export const XPButton: React.FC<XPButtonProps> = ({
+const XPButton: React.FC<XPButtonProps> = ({
   href,
   onClick,
   target,
@@ -46,3 +45,6 @@ export const XPButton: React.FC<XPButtonProps> = ({
     </button>
   );
 };
+
+export default XPButton;
+export type { XPButtonProps };

@@ -1,1 +1,1 @@
-﻿export { WindowTitleBar } from './WindowTitleBar';
+﻿export { default } from './WindowTitleBar';

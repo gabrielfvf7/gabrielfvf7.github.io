@@ -1,10 +1,11 @@
 ﻿import React from 'react';
 import { PERSONAL_INFO } from '../../../constants';
+import ContentBox from '../../shared/ContentBox';
+import XPButton from '../../shared/XPButton';
 
 export const AboutSection: React.FC = () => {
   return (
-    <div className="content-box">
-      <div className="box-title">Desenvolvedor</div>
+    <ContentBox title="Desenvolvedor">
       <div className="mb-3">
         <div className="info-name">{PERSONAL_INFO.name}</div>
         <div className="mb-2">{PERSONAL_INFO.role}</div>
@@ -13,16 +14,16 @@ export const AboutSection: React.FC = () => {
         <div>{PERSONAL_INFO.summary}</div>
       </div>
       <div className="button-group">
-        <a href={`mailto:${PERSONAL_INFO.email}`} className="xp-button">
+        <XPButton href={`mailto:${PERSONAL_INFO.email}`}>
           📧 Contato
-        </a>
-        <a href={PERSONAL_INFO.github} target="_blank" rel="noreferrer" className="xp-button">
+        </XPButton>
+        <XPButton href={PERSONAL_INFO.github} target="_blank">
           GitHub
-        </a>
-        <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noreferrer" className="xp-button">
+        </XPButton>
+        <XPButton href={PERSONAL_INFO.linkedin} target="_blank">
           LinkedIn
-        </a>
+        </XPButton>
       </div>
-    </div>
+    </ContentBox>
   );
 };

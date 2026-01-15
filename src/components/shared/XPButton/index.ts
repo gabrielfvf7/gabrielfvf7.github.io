@@ -1,1 +1,2 @@
-export { XPButton } from './XPButton';
+export { default } from './XPButton';
+export { default as XPButton } from './XPButton';

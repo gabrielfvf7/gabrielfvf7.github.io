@@ -2,7 +2,7 @@ import React from 'react';
 import './IconButton.css';
 
 interface IconButtonProps {
-  onClick: () => void;
+  onClick: (e?: React.MouseEvent) => void;
   disabled?: boolean;
   title?: string;
   children: React.ReactNode;
