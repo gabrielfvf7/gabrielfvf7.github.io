@@ -23,8 +23,8 @@ export const PortfolioWindow = forwardRef<PortfolioWindowRef, PortfolioWindowPro
     const {
       activeTab,
       isMaximized,
-      offsetX,
-      offsetY,
+      positionX,
+      positionY,
       handleMaximize,
       restore,
       getWindowIcon,
@@ -39,9 +39,9 @@ export const PortfolioWindow = forwardRef<PortfolioWindowRef, PortfolioWindowPro
       <div 
         className={`portfolio-window ${window.isMinimized ? 'minimized' : ''} ${isMaximized ? 'maximized' : ''}`}
         style={{ 
-          left: `${offsetX}px`,
-          top: `${offsetY}px`,
-          zIndex: window.zIndex
+          left: isMaximized ? '0px' : `${positionX}px`,
+          top: isMaximized ? '0px' : `${positionY}px`,
+          zIndex: window.zIndex,
         }}
         onMouseDown={handleMouseDown}
       >

@@ -21,8 +21,8 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
       isMaximized,
       showGameMenu,
       menuRef,
-      offsetX,
-      offsetY,
+      positionX,
+      positionY,
       handleMaximize,
       handleResetGame,
       handleChangeDifficulty,
@@ -38,9 +38,9 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
       <div 
         className={`minesweeper-window ${gameWindow.isMinimized ? 'minimized' : ''} ${isMaximized ? 'maximized' : ''}`}
         style={{ 
-          left: `${offsetX}px`,
-          top: `${offsetY}px`,
-          zIndex: gameWindow.zIndex
+          left: isMaximized ? '0px' : `${positionX}px`,
+          top: isMaximized ? '0px' : `${positionY}px`,
+          zIndex: gameWindow.zIndex,
         }}
         onMouseDown={handleMouseDown}
       >

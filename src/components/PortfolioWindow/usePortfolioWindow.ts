@@ -51,8 +51,8 @@ export const usePortfolioWindow = ({ window, index, onBringToFront }: UsePortfol
   return {
     activeTab,
     isMaximized,
-    offsetX: position.x,
-    offsetY: position.y,
+    positionX: position.x,
+    positionY: position.y,
     handleMaximize,
     restore,
     getWindowIcon,

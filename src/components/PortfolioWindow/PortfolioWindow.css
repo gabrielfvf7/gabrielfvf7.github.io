@@ -11,7 +11,8 @@
   min-height: 400px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5), inset -1px -1px #424fa2, inset 1px 1px #4e68d1, inset -2px -2px #5669c0, inset 2px 2px #528eef, inset -3px -3px #4e73d7, inset 3px 3px #5284da;
   pointer-events: auto;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center center;
 }
 
 .portfolio-window.minimized {
@@ -21,11 +22,11 @@
 }
 
 .portfolio-window.maximized {
-  left: 0 !important;
-  top: 0 !important;
-  width: 100% !important;
-  height: calc(100% - 30px) !important;
+  width: 100vw;
+  height: calc(100vh - 30px);
   border-radius: 0;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
 }
 
 .window-title-bar {
