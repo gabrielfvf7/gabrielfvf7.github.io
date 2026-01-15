@@ -95,6 +95,5 @@ Este projeto utiliza os seguintes recursos de terceiros:
   - Licença: MIT License
   - Usado para implementar a funcionalidade do Paint no portfolio
 
-## 📝 Documentação Adicional
-
-Veja a pasta [docs/](./docs/) para documentação detalhada sobre implementações e features do projeto.
+- **[Win32.run](https://github.com/ducbao414/win32.run)** por ducbao414 - Projeto de referência para interface Windows XP
+  - Usado como inspiração para o design e comportamento autêntico do Windows XP
