@@ -1,5 +1,6 @@
 import React from 'react';
 import type { OpenWindow } from '../../types';
+import { useTaskbar } from './useTaskbar';
 import './Taskbar.css';
 
 interface TaskbarProps {
@@ -15,6 +16,8 @@ export const Taskbar: React.FC<TaskbarProps> = ({
   onWindowClick, 
   currentTime 
 }) => {
+  const { getWindowIcon } = useTaskbar();
+
   return (
     <div className="taskbar">
       {/* Start Button */}
@@ -30,30 +33,17 @@ export const Taskbar: React.FC<TaskbarProps> = ({
 
       {/* Window Buttons */}
       <div className="window-buttons-container">
-        {openWindows.map((window) => {
-          const getWindowIcon = () => {
-            switch(window.tab) {
-              case 'about': return '/icons/User Accounts.png';
-              case 'projects': return '/icons/Freecell.png';
-              case 'experience': return '/icons/Scheduled Tasks.png';
-              case 'skills': return '/icons/System Information.png';
-              case 'minesweeper': return '/icons/Minesweeper.png';
-              default: return '/icons/Default.png';
-            }
-          };
-
-          return (
-            <button
-              key={window.id}
-              onClick={() => onWindowClick(window.id)}
-              className="window-button"
-              title={window.title}
-            >
-              <img src={getWindowIcon()} alt="" className="window-button-icon" />
-              {window.title}
-            </button>
-          );
-        })}
+        {openWindows.map((window) => (
+          <button
+            key={window.id}
+            onClick={() => onWindowClick(window.id)}
+            className="window-button"
+            title={window.title}
+          >
+            <img src={getWindowIcon(window)} alt="" className="window-button-icon" />
+            {window.title}
+          </button>
+        ))}
       </div>
 
       {/* System Tray / Time */}

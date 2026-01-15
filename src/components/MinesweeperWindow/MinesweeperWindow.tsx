@@ -1,12 +1,14 @@
-import { useState, useImperativeHandle, forwardRef, useEffect, useRef } from 'react';
+import { useImperativeHandle, forwardRef } from 'react';
 import type { OpenWindow } from '../../types';
-import { initializeMinesweeper } from '../../utils/minesweeperGame';
+import { useMinesweeperWindow } from './useMinesweeperWindow';
 import './MinesweeperWindow.css';
 
 interface MinesweeperWindowProps {
   window: OpenWindow;
   index: number;
   onClose: (id: string) => void;
+  onBringToFront: (id: string) => void;
+  onMinimize: (id: string) => void;
 }
 
 export interface MinesweeperWindowRef {
@@ -14,91 +16,33 @@ export interface MinesweeperWindowRef {
 }
 
 export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWindowProps>(
-  ({ window: gameWindow, index, onClose }, ref) => {
-    const [isMinimized, setIsMinimized] = useState(false);
-    const [isMaximized, setIsMaximized] = useState(false);
-    const [showGameMenu, setShowGameMenu] = useState(false);
-    const menuRef = useRef<HTMLDivElement>(null);
-    const gameControlsRef = useRef<{ cleanup: () => void; changeDifficulty: (level: 'beginner' | 'intermediate' | 'expert') => void } | null>(null);
-    const offsetX = 40 + index * 30;
-    const offsetY = 60 + index * 30;
+  ({ window: gameWindow, index, onClose, onBringToFront, onMinimize }, ref) => {
+    const {
+      isMaximized,
+      showGameMenu,
+      menuRef,
+      offsetX,
+      offsetY,
+      handleMaximize,
+      handleResetGame,
+      handleChangeDifficulty,
+      handleHelp,
+      setShowGameMenu,
+      restore,
+      handleMouseDown,
+    } = useMinesweeperWindow({ window: gameWindow, index, onBringToFront });
 
-    const handleMinimize = () => {
-      setIsMinimized(!isMinimized);
-    };
-
-    const handleMaximize = () => {
-      setIsMaximized(!isMaximized);
-    };
-
-    const handleResetGame = () => {
-      const botao = document.getElementById('botao-reiniciar') as HTMLButtonElement;
-      if (botao) botao.click();
-      setShowGameMenu(false);
-    };
-
-    const handleChangeDifficulty = (level: string) => {
-      console.log('handleChangeDifficulty called with:', level);
-      if (gameControlsRef.current) {
-        gameControlsRef.current.changeDifficulty(level as 'beginner' | 'intermediate' | 'expert');
-      } else {
-        console.error('Game controls not initialized');
-      }
-      setShowGameMenu(false);
-    };
-
-    const handleHelp = () => {
-      window.open('https://www.google.com/search?q=Como+jogar+campo+minado', '_blank');
-    };
-
-    useImperativeHandle(ref, () => ({
-      restore: () => {
-        if (isMinimized) {
-          setIsMinimized(false);
-        }
-      }
-    }));
-
-    useEffect(() => {
-      // Aguardar a montagem do componente antes de inicializar o jogo
-      const timeoutId = setTimeout(() => {
-        const gameControls = initializeMinesweeper();
-        gameControlsRef.current = gameControls;
-        
-        // Retornar função de limpeza
-        return () => {
-          if (gameControls) gameControls.cleanup();
-        };
-      }, 100);
-
-      return () => clearTimeout(timeoutId);
-    }, []);
-
-    useEffect(() => {
-      // Fechar menu ao clicar fora
-      const handleClickOutside = () => {
-        if (showGameMenu) {
-          setShowGameMenu(false);
-        }
-      };
-
-      if (showGameMenu) {
-        document.addEventListener('click', handleClickOutside);
-      }
-
-      return () => {
-        document.removeEventListener('click', handleClickOutside);
-      };
-    }, [showGameMenu]);
+    useImperativeHandle(ref, () => ({ restore }));
 
     return (
       <div 
-        className={`minesweeper-window ${isMinimized ? 'minimized' : ''} ${isMaximized ? 'maximized' : ''}`}
+        className={`minesweeper-window ${gameWindow.isMinimized ? 'minimized' : ''} ${isMaximized ? 'maximized' : ''}`}
         style={{ 
           left: `${offsetX}px`,
           top: `${offsetY}px`,
-          zIndex: 100 + index
+          zIndex: gameWindow.zIndex
         }}
+        onMouseDown={handleMouseDown}
       >
         {/* Title Bar */}
         <div className="window-title-bar">
@@ -111,7 +55,7 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                handleMinimize();
+                onMinimize(gameWindow.id);
               }}
             >
               <img src="/Minimize.png" alt="" />
@@ -148,7 +92,6 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
             className="menu-item" 
             onClick={(e) => {
               e.stopPropagation();
-              console.log('Menu clicked, current state:', showGameMenu);
               setShowGameMenu(!showGameMenu);
             }}
           >

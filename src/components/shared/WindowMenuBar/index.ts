@@ -1,0 +1,1 @@
+export { WindowMenuBar } from './WindowMenuBar';

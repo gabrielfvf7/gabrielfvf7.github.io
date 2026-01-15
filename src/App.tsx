@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import './App.css';
 
 // Custom Hooks
@@ -21,7 +21,7 @@ import type { PortfolioWindowRef } from './components/PortfolioWindow/PortfolioW
 import type { MinesweeperWindowRef } from './components/MinesweeperWindow';
 
 const Portfolio: React.FC = () => {
-  const { openWindows, openWindow, closeWindow } = useWindowManager();
+  const { openWindows, openWindow, closeWindow, bringToFront, toggleMinimize } = useWindowManager();
   const { startMenuOpen, toggleStartMenu, closeStartMenu } = useStartMenu();
   const { theme, toggleTheme } = useTheme();
   const currentTime = useTime();
@@ -39,15 +39,55 @@ const Portfolio: React.FC = () => {
   };
 
   const handleWindowClick = (windowId: string) => {
-    const windowRef = windowRefs.current.get(windowId);
-    if (windowRef) {
-      windowRef.restore();
+    const window = openWindows.find(w => w.id === windowId);
+    if (!window) return;
+    
+    // Se a janela já está aberta e não minimizada, minimizar
+    if (!window.isMinimized) {
+      toggleMinimize(windowId);
+    } else {
+      // Se está minimizada, restaurar e trazer para frente
+      toggleMinimize(windowId);
+      bringToFront(windowId);
     }
   };
 
   const handleTrashDoubleClick = () => {
     // Close window logic
   };
+
+  // Fechar menu iniciar ao clicar fora (exceto no botão start)
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      
+      // Verificar se clicou no botão start
+      if (target.closest('.start-button')) {
+        return;
+      }
+      
+      // Verificar se clicou no menu iniciar
+      if (target.closest('.start-menu')) {
+        return;
+      }
+      
+      // Fechar o menu se clicou em qualquer outro lugar
+      if (startMenuOpen) {
+        closeStartMenu();
+      }
+    };
+
+    if (startMenuOpen) {
+      // Adicionar delay para não fechar imediatamente ao abrir
+      setTimeout(() => {
+        document.addEventListener('click', handleClickOutside);
+      }, 0);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [startMenuOpen, closeStartMenu]);
 
   if (theme === 'modern') {
     return <ModernPortfolio onSwitchToXP={toggleTheme} />;
@@ -80,6 +120,8 @@ const Portfolio: React.FC = () => {
                 window={window} 
                 index={index}
                 onClose={closeWindow}
+                onBringToFront={bringToFront}
+                onMinimize={toggleMinimize}
               />
             );
           }
@@ -96,6 +138,8 @@ const Portfolio: React.FC = () => {
               window={window} 
               index={index}
               onClose={closeWindow}
+              onBringToFront={bringToFront}
+              onMinimize={toggleMinimize}
             />
           );
         })}

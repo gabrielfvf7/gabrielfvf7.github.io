@@ -185,7 +185,6 @@ export function initializeMinesweeper() {
   }
 
   function iniciarJogo(): void {
-    console.log('iniciarJogo() called from listener, difficulty:', seletorDificuldade!.value);
     aplicarDificuldade(seletorDificuldade!.value as DifficultyLevel);
     inicializarTabuleiro();
     criarDOMTabuleiro();
@@ -372,10 +371,7 @@ export function initializeMinesweeper() {
   }
 
   botaoReiniciar!.addEventListener('click', iniciarJogo);
-  seletorDificuldade!.addEventListener('change', () => {
-    console.log('Change listener triggered!');
-    iniciarJogo();
-  });
+  seletorDificuldade!.addEventListener('change', iniciarJogo);
 
   // Inicializar o jogo
   aplicarDificuldade(seletorDificuldade!.value as DifficultyLevel);
@@ -392,7 +388,6 @@ export function initializeMinesweeper() {
       });
     },
     changeDifficulty: (level: DifficultyLevel) => {
-      console.log('changeDifficulty called with:', level);
       seletorDificuldade!.value = level;
       iniciarJogo();
     }

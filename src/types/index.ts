@@ -2,6 +2,8 @@ export interface OpenWindow {
   id: string;
   title: string;
   tab: string;
+  isMinimized?: boolean;
+  zIndex: number;
 }
 
 export interface ExperienceItem {

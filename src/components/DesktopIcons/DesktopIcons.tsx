@@ -1,5 +1,6 @@
-import React, { useState, useImperativeHandle, forwardRef } from 'react';
+import { useImperativeHandle, forwardRef } from 'react';
 import { DESKTOP_ICONS } from '../../constants';
+import { useDesktopIcons } from './useDesktopIcons';
 import './DesktopIcons.css';
 
 interface DesktopIconsProps {
@@ -15,16 +16,9 @@ export const DesktopIcons = forwardRef<DesktopIconsRef, DesktopIconsProps>(({
   onIconDoubleClick,
   onModernVersionClick
 }, ref) => {
-  const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
+  const { selectedIcon, handleIconClick, clearSelection } = useDesktopIcons();
 
-  useImperativeHandle(ref, () => ({
-    clearSelection: () => setSelectedIcon(null)
-  }));
-
-  const handleIconClick = (e: React.MouseEvent, iconId: string) => {
-    e.stopPropagation();
-    setSelectedIcon(iconId);
-  };
+  useImperativeHandle(ref, () => ({ clearSelection }));
 
   const handleIconDoubleClick = (iconId: string) => {
     if (iconId === 'modern-version') {
