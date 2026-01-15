@@ -102,19 +102,23 @@
   user-select: none;
   padding: 0 2px;
   align-items: center;
+  overflow: hidden;
 }
 
 .window-menu-bar .menu-item {
-  padding: 2px 8px;
+  padding: 3px 8px;
   cursor: pointer;
   border-radius: 2px;
   line-height: 1;
+  position: relative;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  margin: -1px 0;
 }
 
 .window-menu-bar .menu-item:hover {
   background: #d1e8ff;
-  border: 1px solid #0066cc;
-  padding: 1px 7px;
+  border-color: #0066cc;
 }
 
 .window-body {
