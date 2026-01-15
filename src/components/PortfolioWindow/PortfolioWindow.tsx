@@ -72,7 +72,12 @@ export const PortfolioWindow = forwardRef<PortfolioWindowRef, PortfolioWindowPro
         {activeTab === 'experience' && <ExperienceSection />}
       </div>
 
-      {!isMaximized && <ResizeHandles onResizeStart={handleResizeStart} windowRef={windowRef} />}
+      {!isMaximized && (
+        <ResizeHandles 
+          onResizeStart={handleResizeStart} 
+          windowRef={windowRef as React.RefObject<HTMLDivElement>} 
+        />
+      )}
     </div>
   );
 });

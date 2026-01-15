@@ -110,7 +110,7 @@ export function initializeMinesweeper() {
     resetarCronometro();
 
     for (let i = 0; i < LINHAS; i++) {
-      tabuleiro[i] = new Array(COLUNAS).fill(0);
+      tabuleiro[i] = new Array<number>(COLUNAS).fill(0);
     }
 
     let bombasColocadas = 0;
