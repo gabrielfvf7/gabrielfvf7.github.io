@@ -1,0 +1,110 @@
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  gap: 0;
+  z-index: 50;
+  background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #1941a5 100%);
+  border-top: 1px solid #0c59b9;
+}
+
+.taskbar .start-button {
+  width: 94px;
+  height: 30px;
+  padding: 0;
+  background: url('/start_btn_normal.png') no-repeat center center;
+  background-size: cover;
+  border: none;
+  font-size: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  margin: 0;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.taskbar .start-button:hover {
+  filter: brightness(1.1);
+}
+
+.taskbar .start-button:active {
+  filter: brightness(0.9);
+}
+
+.start-text {
+  font-style: italic;
+}
+
+.window-buttons-container {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  margin-left: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.window-buttons-container::-webkit-scrollbar {
+  height: 0;
+}
+
+.window-button {
+  flex-shrink: 0;
+  padding: 0 12px;
+  height: 22px;
+  background: linear-gradient(to bottom, #3c7efb 0%, #2863e6 50%, #1753db 100%);
+  border: 1px solid #0831d9;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: normal;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.window-button-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.window-button:hover {
+  background: linear-gradient(to bottom, #4c8efc 0%, #3873f7 50%, #2763ec 100%);
+}
+
+.window-button:active {
+  background: linear-gradient(to bottom, #1753db 0%, #2863e6 50%, #3c7efb 100%);
+}
+
+.system-tray {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  height: 30px;
+  padding: 0 12px;
+  background: linear-gradient(to bottom, #0e8dde 0%, #1292e5 10%, #129aed 30%, #0d8ece 50%, #0a82bd 70%, #0d8ece 100%);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 0;
+}
+
+.system-tray-time {
+  color: white;
+  font-size: 11px;
+  font-weight: normal;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}

@@ -1,0 +1,11 @@
+.desktop-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Windows_XP_default_wallpaper_-_Bliss.svg');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  pointer-events: none;
+  min-height: 100vh;
+}

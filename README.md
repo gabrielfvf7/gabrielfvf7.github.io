@@ -1,53 +1,80 @@
-# React + TypeScript + Vite
+# Portfolio Gabriel Vargas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio pessoal em formato Windows XP com versão moderna alternativa.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
 
-## React Compiler
+## 📦 Instalação
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Desenvolvimento
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
+```bash
+npm run dev
+```
+
+## 🏗️ Build
+
+```bash
+npm run build
+```
+
+## 🌐 Deploy no GitHub Pages
+
+1. Build do projeto:
+```bash
+npm run build
+```
+
+2. Commit e push da pasta dist:
+```bash
+git add dist -f
+git commit -m "Deploy to GitHub Pages"
+git subtree push --prefix dist origin gh-pages
+```
+
+Ou simplesmente execute:
+```bash
+npm run deploy
+```
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── assets/
+│   └── icons/          # Ícones do Windows XP
+├── components/         # Componentes React
+├── constants/          # Constantes e dados
+├── hooks/             # Custom hooks
+├── types/             # TypeScript types
+└── utils/             # Funções utilitárias
+
+public/                # Assets públicos
+docs/                  # Documentação
+```
+
+## ✨ Funcionalidades
+
+- 🪟 Interface Windows XP autêntica
+- 💼 Portfolio moderno alternativo
+- 🎨 Troca dinâmica de temas
+- 📱 Janelas arrastáveis e redimensionáveis
+- 🔄 Minimizar/Maximizar janelas
+- 📊 Informações profissionais interativas
+
+## 📝 Documentação Adicional
+
+Veja a pasta [docs/](./docs/) para documentação detalhada sobre implementações e features do projeto.
+
 import reactDom from 'eslint-plugin-react-dom'
 
 export default defineConfig([
