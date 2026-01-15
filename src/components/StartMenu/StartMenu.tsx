@@ -18,11 +18,11 @@ export const StartMenu: React.FC<StartMenuProps> = ({
   ];
 
   const systemItems = [
-    { id: 'mycomputer', label: 'My Computer', icon: '/winsXpIcons/My Computer.png' },
-    { id: 'mydocs', label: 'My Documents', icon: '/winsXpIcons/My Documents.png' },
-    { id: 'mypics', label: 'My Pictures', icon: '/winsXpIcons/My Pictures.png' },
-    { id: 'mymusic', label: 'My Music', icon: '/winsXpIcons/My Music.png' },
-    { id: 'controlpanel', label: 'Control Panel', icon: '/winsXpIcons/Control Panel.png' },
+    { id: 'mycomputer', label: 'My Computer', icon: '/icons/My Computer.png' },
+    { id: 'mydocs', label: 'My Documents', icon: '/icons/My Documents.png' },
+    { id: 'mypics', label: 'My Pictures', icon: '/icons/My Pictures.png' },
+    { id: 'mymusic', label: 'My Music', icon: '/icons/My Music.png' },
+    { id: 'controlpanel', label: 'Control Panel', icon: '/icons/Control Panel.png' },
   ];
 
   return (
@@ -51,7 +51,7 @@ export const StartMenu: React.FC<StartMenuProps> = ({
                 window.open('https://google.com', '_blank');
               }}
             >
-              <img src="/winsXpIcons/Internet Explorer 6.png" alt="Internet Explorer" className="menu-icon" />
+              <img src="/icons/Internet Explorer 6.png" alt="Internet Explorer" className="menu-icon" />
               <span className="menu-label">Internet Explorer</span>
             </div>
             <div
@@ -61,7 +61,7 @@ export const StartMenu: React.FC<StartMenuProps> = ({
                 window.location.href = `mailto:${PERSONAL_INFO.email}`;
               }}
             >
-              <img src="/winsXpIcons/Outlook Express.png" alt="E-mail" className="menu-icon" />
+              <img src="/icons/Outlook Express.png" alt="E-mail" className="menu-icon" />
               <span className="menu-label">E-mail</span>
             </div>
             {programs.map((program) => (
@@ -82,7 +82,7 @@ export const StartMenu: React.FC<StartMenuProps> = ({
           <div className="menu-divider"></div>
 
           <div className="all-programs">
-            <img src="/winsXpIcons/Start Menu Programs.png" alt="All Programs" className="menu-icon" />
+            <img src="/icons/Start Menu Programs.png" alt="All Programs" className="menu-icon" />
             <span className="menu-label">All Programs</span>
             <span className="arrow">▶</span>
           </div>
