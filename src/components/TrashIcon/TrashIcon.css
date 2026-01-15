@@ -1,0 +1,28 @@
+.trash-icon {
+  position: fixed;
+  bottom: 50px;
+  right: 16px;
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  pointer-events: auto;
+  padding: 4px;
+  z-index: 10;
+}
+
+.trash-image {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 4px;
+}
+
+.trash-label {
+  color: white;
+  font-size: 11px;
+  text-align: center;
+  text-shadow: 1px 1px 2px black;
+  line-height: 1.2;
+}
