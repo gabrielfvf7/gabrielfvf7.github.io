@@ -1,4 +1,4 @@
-import { useImperativeHandle, forwardRef } from 'react';
+﻿import { useImperativeHandle, forwardRef } from 'react';
 import type { OpenWindow } from '../../types';
 import { useMinesweeperWindow } from './useMinesweeperWindow';
 import { ResizeHandles } from '../ResizeHandles';
@@ -25,8 +25,6 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
       windowRef,
       positionX,
       positionY,
-      width,
-      height,
       isResizing,
       handleMaximize,
       handleResizeStart,
@@ -47,13 +45,15 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
         style={{ 
           left: isMaximized ? '0px' : `${positionX}px`,
           top: isMaximized ? '0px' : `${positionY}px`,
-          width: isMaximized ? '100vw' : `${width}px`,
-          height: isMaximized ? 'calc(100vh - 40px)' : `${height}px`,
+          ...(isMaximized && {
+            width: '100vw',
+            height: 'calc(100vh - 30px)',
+          }),
           zIndex: gameWindow.zIndex,
         }}
         onMouseDown={handleMouseDown}
       >
-        {/* Title Bar */}
+        {}
         <div className="window-title-bar">
           <img src="/icons/Minesweeper.png" alt="" className="window-icon" />
           <div className="window-title">Minesweeper</div>
@@ -94,7 +94,7 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
           </div>
         </div>
 
-        {/* Menu Bar */}
+        {}
         <div className="window-menu-bar">
           <div 
             ref={menuRef}
@@ -109,7 +109,7 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
           <div className="menu-item" onClick={handleHelp}>Ajuda</div>
         </div>
         
-        {/* Dropdown Menu - renderizado fora para evitar overflow */}
+        {}
         {showGameMenu && (
           <div 
             className="dropdown-menu" 
@@ -128,7 +128,7 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
           </div>
         )}
 
-        {/* Window Body */}
+        {}
         <div className="window-content">
           <div className="minesweeper-body">
             <div id="status-jogo" className="status-bar">
@@ -137,7 +137,7 @@ export const MinesweeperWindow = forwardRef<MinesweeperWindowRef, MinesweeperWin
               <div id="contador-bandeiras" className="display-box"></div>
             </div>
 
-            {/* Seletor oculto - necessário para o jogo funcionar */}
+            {}
             <select id="dificuldade" defaultValue="intermediate" style={{ display: 'none' }}>
               <option value="beginner">Iniciante (8x8, 10)</option>
               <option value="intermediate">Intermediário (10x10, 15)</option>

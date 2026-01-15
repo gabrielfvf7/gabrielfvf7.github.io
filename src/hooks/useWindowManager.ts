@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import type { OpenWindow } from '../types';
 import { WINDOW_TITLES } from '../constants';
 

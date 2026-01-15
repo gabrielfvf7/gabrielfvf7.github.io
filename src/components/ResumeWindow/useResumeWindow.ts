@@ -1,18 +1,17 @@
-﻿import { useState, useRef } from 'react';
-import type { OpenWindow } from '../../types';
+import { useState, useEffect, useRef } from 'react';
 import { useDraggable } from '../../hooks/useDraggable';
 import { useResizable } from '../../hooks/useResizable';
+import type { OpenWindow } from '../../types';
 import type { MouseEvent } from 'react';
 
-interface UsePaintWindowProps {
+interface UseResumeWindowProps {
   window: OpenWindow;
   index: number;
   onBringToFront: (id: string) => void;
 }
 
-export const usePaintWindow = ({ window: paintWindow, index, onBringToFront }: UsePaintWindowProps) => {
+export const useResumeWindow = ({ window: resumeWindow, index, onBringToFront }: UseResumeWindowProps) => {
   const [isMaximized, setIsMaximized] = useState(false);
-  const [iframeLoaded, setIframeLoaded] = useState(false);
   const windowRef = useRef<HTMLDivElement>(null);
 
   const offsetX = 40 + index * 30;
@@ -27,10 +26,12 @@ export const usePaintWindow = ({ window: paintWindow, index, onBringToFront }: U
   const { size, isResizing, handleResizeStart, resetSize } = useResizable({
     initialWidth: 800,
     initialHeight: 600,
+    minWidth: 600,
+    minHeight: 500,
   });
 
   const handleMouseDown = (e: MouseEvent) => {
-    onBringToFront(paintWindow.id);
+    onBringToFront(resumeWindow.id);
     dragMouseDown(e);
   };
 
@@ -44,24 +45,35 @@ export const usePaintWindow = ({ window: paintWindow, index, onBringToFront }: U
   };
 
   const restore = () => {
-    if (isMaximized) {
-      setIsMaximized(false);
-    }
+    setIsMaximized(false);
+    resetSize();
   };
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (windowRef.current && !windowRef.current.contains(target)) {
+        return;
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside as unknown as EventListener);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside as unknown as EventListener);
+    };
+  }, []);
 
   return {
     isMaximized,
+    windowRef,
     positionX: position.x,
     positionY: position.y,
     width: size.width,
     height: size.height,
-    windowRef,
     isResizing,
     handleMaximize,
     handleResizeStart,
     restore,
     handleMouseDown,
-    iframeLoaded,
-    setIframeLoaded,
   };
 };

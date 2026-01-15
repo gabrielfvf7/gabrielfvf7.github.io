@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { PERSONAL_INFO, DESKTOP_ICONS } from '../../constants';
 import './StartMenu.css';
 
@@ -29,7 +29,7 @@ export const StartMenu: React.FC<StartMenuProps> = ({
 
   return (
     <div className="start-menu" onClick={(e) => e.stopPropagation()}>
-      {/* Header with user info */}
+      {}
       <div className="start-menu-header">
         <img 
           src="/avatar.jpg" 
@@ -41,9 +41,9 @@ export const StartMenu: React.FC<StartMenuProps> = ({
         </div>
       </div>
 
-      {/* Main Content */}
+      {}
       <div className="start-menu-content" onClick={(e) => e.stopPropagation()}>
-        {/* Left Panel - Programs */}
+        {}
         <div className="start-menu-left">
           <div className="programs-list">
             <div
@@ -91,7 +91,7 @@ export const StartMenu: React.FC<StartMenuProps> = ({
           </div>
         </div>
 
-        {/* Right Panel - System */}
+        {}
         <div className="start-menu-right">
           {systemItems.map((item) => (
             <div

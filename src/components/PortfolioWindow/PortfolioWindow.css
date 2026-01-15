@@ -9,6 +9,7 @@
   flex-direction: column;
   min-width: 500px;
   min-height: 400px;
+  overflow: hidden;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5), inset -1px -1px #424fa2, inset 1px 1px #4e68d1, inset -2px -2px #5669c0, inset 2px 2px #528eef, inset -3px -3px #4e73d7, inset 3px 3px #5284da;
   pointer-events: auto;
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -131,9 +132,10 @@
   flex: 1;
   overflow-y: auto;
   background: white;
-  padding: 12px;
+  padding: 8px;
   font-size: 11px;
   font-family: Tahoma, sans-serif;
+  min-height: 0;
 }
 
 .section-title {
@@ -235,8 +237,7 @@
 }
 
 .experience-list {
-  max-height: 400px;
-  overflow-y: auto;
+  height: 100%;
 }
 
 .experience-header {

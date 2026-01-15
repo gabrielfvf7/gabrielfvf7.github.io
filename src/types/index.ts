@@ -1,4 +1,4 @@
-export interface OpenWindow {
+﻿export interface OpenWindow {
   id: string;
   title: string;
   tab: string;

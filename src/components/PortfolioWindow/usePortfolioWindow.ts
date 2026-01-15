@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+﻿import { useState, useRef } from 'react';
 import type { OpenWindow } from '../../types';
 import { useDraggable } from '../../hooks/useDraggable';
 import { useResizable } from '../../hooks/useResizable';
@@ -44,7 +44,6 @@ export const usePortfolioWindow = ({ window, index, onBringToFront }: UsePortfol
   };
 
   const restore = () => {
-    // Restore apenas maximização, não minimização
     if (isMaximized) {
       setIsMaximized(false);
     }

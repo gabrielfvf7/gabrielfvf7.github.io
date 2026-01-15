@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 
 interface Position {
@@ -21,7 +21,6 @@ export const useDraggable = ({ initialX, initialY, disabled = false }: UseDragga
   const handleMouseDown = (e: ReactMouseEvent) => {
     if (disabled) return;
     
-    // Apenas permitir arrastar pela área específica (será verificado pelo className)
     const target = e.target as HTMLElement;
     if (!target.closest('.window-title-bar')) return;
 

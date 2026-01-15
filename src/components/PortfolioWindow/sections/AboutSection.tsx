@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { PERSONAL_INFO } from '../../../constants';
 
 export const AboutSection: React.FC = () => {

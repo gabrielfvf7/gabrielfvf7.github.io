@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 export const ProjectsSection: React.FC = () => {
   return (
@@ -10,9 +10,9 @@ export const ProjectsSection: React.FC = () => {
         </div>
       </div>
       <div className="info-panel">
-        <div>App desenvolvido em Flutter para a comunidade da UFRJ, facilitando o comércio de refeições entre estudantes.</div>
+        <div>App desenvolvido em Flutter, com uso do Firebase, para a comunidade da UFRJ, facilitando o comércio de refeições entre estudantes e vendedores.</div>
       </div>
-      <a href="https://github.com/DevMobUFRJ/rango" target="_blank" rel="noreferrer" className="xp-button">
+      <a href="https://github.com/DevMobUFRJ/rango" target="_blank" rel="noreferrer" className="project-link">
         Ver Repositório →
       </a>
     </div>

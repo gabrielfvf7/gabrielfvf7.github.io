@@ -1,4 +1,4 @@
-import { useImperativeHandle, forwardRef } from 'react';
+﻿import { useImperativeHandle, forwardRef } from 'react';
 import type { OpenWindow } from '../../types';
 import { usePortfolioWindow } from './usePortfolioWindow';
 import { WindowTitleBar } from '../shared/WindowTitleBar';
@@ -49,7 +49,7 @@ export const PortfolioWindow = forwardRef<PortfolioWindowRef, PortfolioWindowPro
           left: isMaximized ? '0px' : `${positionX}px`,
           top: isMaximized ? '0px' : `${positionY}px`,
           width: isMaximized ? '100vw' : `${width}px`,
-          height: isMaximized ? 'calc(100vh - 40px)' : `${height}px`,
+          height: isMaximized ? 'calc(100vh - 30px)' : `${height}px`,
           zIndex: window.zIndex,
         }}
         onMouseDown={handleMouseDown}

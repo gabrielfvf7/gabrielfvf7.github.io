@@ -1,1 +1,1 @@
-export { ResizeHandles } from './ResizeHandles';
+﻿export { ResizeHandles } from './ResizeHandles';

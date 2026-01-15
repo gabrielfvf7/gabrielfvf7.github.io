@@ -69,6 +69,7 @@ src/
 
 public/                # Assets públicos
   └── jspaint/         # JSPaint - MS Paint clone
+  └── documents/       # Documentos (currículo, etc)
 docs/                  # Documentação
 ```
 
@@ -78,10 +79,13 @@ docs/                  # Documentação
 - 💼 Portfolio moderno alternativo
 - 🎨 Troca dinâmica de temas
 - 🎮 Campo Minado integrado (versão XP)
-- �️ Paint funcional (MS Paint clone)
+- 🖌️ Paint funcional (MS Paint clone)
 - 🔄 Minimizar/Maximizar janelas
-- ↔️ Arrastar janelas pela tela- 📏 **Redimensionar janelas pelas bordas e cantos** (apenas janelas não maximizadas)- ⏰ Relógio funcional na taskbar
+- ↔️ Arrastar janelas pela tela
+- 📏 Redimensionar janelas pelas bordas e cantos (apenas janelas não maximizadas)
+- ⏰ Relógio funcional na taskbar
 - 📊 Informações profissionais interativas
+- 📄 Visualizador de currículo em PDF
 
 ## 🎯 Créditos e Atribuições
 
@@ -94,4 +98,3 @@ Este projeto utiliza os seguintes recursos de terceiros:
 ## 📝 Documentação Adicional
 
 Veja a pasta [docs/](./docs/) para documentação detalhada sobre implementações e features do projeto.
-```

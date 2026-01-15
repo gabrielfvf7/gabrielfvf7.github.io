@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Github, Linkedin, Mail, ExternalLink, Bomb, Gamepad2, Utensils, Monitor } from 'lucide-react';
+﻿import React, { useEffect } from 'react';
+import { Github, Linkedin, Mail, ExternalLink, Bomb, Gamepad2, Utensils, Monitor, FileText } from 'lucide-react';
 import { PERSONAL_INFO, SKILLS, EXPERIENCE } from '../../constants';
 import './ModernPortfolio.css';
 
@@ -9,7 +9,6 @@ interface ModernPortfolioProps {
 
 export const ModernPortfolio: React.FC<ModernPortfolioProps> = ({ onSwitchToXP }) => {
   useEffect(() => {
-    // Habilitar scroll quando entrar na versão moderna
     document.documentElement.style.overflow = 'auto';
     document.body.style.overflow = 'auto';
     document.documentElement.style.fontSize = '16px';
@@ -20,7 +19,6 @@ export const ModernPortfolio: React.FC<ModernPortfolioProps> = ({ onSwitchToXP }
       root.style.height = 'auto';
     }
 
-    // Restaurar overflow: hidden quando sair
     return () => {
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
@@ -62,6 +60,9 @@ export const ModernPortfolio: React.FC<ModernPortfolioProps> = ({ onSwitchToXP }
             <a href={`mailto:${PERSONAL_INFO.email}`} className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-4 rounded-lg flex items-center gap-2 transition-all text-base">
               <Mail size={20}/> Contato
             </a>
+            <a href="/documents/resume.pdf" target="_blank" rel="noreferrer" className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-4 rounded-lg flex items-center gap-2 transition-all text-base">
+              <FileText size={20}/> Currículo
+            </a>
             <a href={PERSONAL_INFO.github} target="_blank" rel="noreferrer" className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-lg flex items-center gap-2 transition-all border border-slate-700 text-base">
               <Github size={20}/> GitHub
             </a>
@@ -86,7 +87,7 @@ export const ModernPortfolio: React.FC<ModernPortfolioProps> = ({ onSwitchToXP }
               </div>
               <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-teal-400">Rango (TCC)</h3>
               <p className="text-slate-400 text-base mb-6 leading-relaxed">
-                App desenvolvido em Flutter para a comunidade da UFRJ, facilitando o comércio de refeições entre estudantes.
+                App desenvolvido em Flutter, com uso do Firebase, para a comunidade da UFRJ, facilitando o comércio de refeições entre estudantes e vendedores.
               </p>
               <div className="flex gap-2 mb-6">
                 <span className="text-xs font-mono bg-slate-800 text-slate-300 px-3 py-1.5 rounded">FLUTTER</span>

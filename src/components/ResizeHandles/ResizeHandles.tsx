@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import './ResizeHandles.css';
 
 type ResizeDirection = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';

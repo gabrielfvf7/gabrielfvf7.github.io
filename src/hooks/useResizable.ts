@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+﻿import { useState, useCallback, useRef, useEffect } from 'react';
 
 type ResizeDirection = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
 
@@ -84,10 +84,15 @@ export const useResizable = ({
     setSize({ width: initialWidth, height: initialHeight });
   }, [initialWidth, initialHeight]);
 
+  const updateSize = useCallback((width: number, height: number) => {
+    setSize({ width, height });
+  }, []);
+
   return {
     size,
     isResizing,
     handleResizeStart,
     resetSize,
+    setSize: updateSize,
   };
 };

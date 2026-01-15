@@ -1,4 +1,4 @@
-import { useImperativeHandle, forwardRef, useRef, useEffect } from 'react';
+﻿import { useImperativeHandle, forwardRef, useRef, useEffect } from 'react';
 import type { OpenWindow } from '../../types';
 import { usePaintWindow } from './usePaintWindow';
 import { ResizeHandles } from '../ResizeHandles';
@@ -42,7 +42,6 @@ export const PaintWindow = forwardRef<PaintWindowRef, PaintWindowProps>(
       if (iframeLoaded && iframeRef.current?.contentWindow) {
         const contentWindow = iframeRef.current.contentWindow;
         
-        // Aplicar tema clássico do JSPaint se disponível
         setTimeout(() => {
           try {
             if ('set_theme' in contentWindow && typeof contentWindow.set_theme === 'function') {
@@ -63,12 +62,12 @@ export const PaintWindow = forwardRef<PaintWindowRef, PaintWindowProps>(
           left: isMaximized ? '0px' : `${positionX}px`,
           top: isMaximized ? '0px' : `${positionY}px`,
           width: isMaximized ? '100vw' : `${width}px`,
-          height: isMaximized ? 'calc(100vh - 40px)' : `${height}px`,
+          height: isMaximized ? 'calc(100vh - 30px)' : `${height}px`,
           zIndex: paintWindow.zIndex,
         }}
         onMouseDown={handleMouseDown}
       >
-        {/* Title Bar */}
+        {}
         <div className="window-title-bar">
           <img src="/icons/Paint.png" alt="" className="window-icon" />
           <div className="window-title">Paint</div>
@@ -109,7 +108,7 @@ export const PaintWindow = forwardRef<PaintWindowRef, PaintWindowProps>(
           </div>
         </div>
 
-        {/* Paint Content */}
+        {}
         <div className="paint-content">
           <iframe
             ref={iframeRef}

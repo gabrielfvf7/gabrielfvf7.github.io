@@ -1,6 +1,4 @@
-// Minesweeper Game Logic
-// Encapsulado para funcionar dentro de um componente React
-
+﻿
 type AssetKey = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'FLAG' | 'QUESTION' | 'MINE' | 'MINE_DEATH' | 'MISFLAGGED' | 'SMILE' | 'OHH' | 'DEAD' | 'WIN' | 
   'digit0' | 'digit1' | 'digit2' | 'digit3' | 'digit4' | 'digit5' | 'digit6' | 'digit7' | 'digit8' | 'digit9';
 
@@ -373,11 +371,9 @@ export function initializeMinesweeper() {
   botaoReiniciar!.addEventListener('click', iniciarJogo);
   seletorDificuldade!.addEventListener('change', iniciarJogo);
 
-  // Inicializar o jogo
   aplicarDificuldade(seletorDificuldade!.value as DifficultyLevel);
   iniciarJogo();
 
-  // Retornar função de limpeza e controles públicos
   return {
     cleanup: () => {
       pararCronometro();

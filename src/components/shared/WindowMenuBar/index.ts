@@ -1,1 +1,1 @@
-export { WindowMenuBar } from './WindowMenuBar';
+﻿export { WindowMenuBar } from './WindowMenuBar';

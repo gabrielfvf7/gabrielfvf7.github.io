@@ -1,11 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+﻿import React, { useRef, useEffect, useCallback } from 'react';
 import './App.css';
 
-// Custom Hooks
 import { useWindowManager, useTheme, useTime } from './hooks';
 import { useStartMenu } from './components/StartMenu';
 
-// Components
 import { 
   DesktopContainer, 
   DesktopIcons, 
@@ -17,10 +15,12 @@ import {
 } from './components';
 import { MinesweeperWindow } from './components/MinesweeperWindow';
 import { PaintWindow } from './components/PaintWindow';
+import { ResumeWindow } from './components/ResumeWindow';
 import type { DesktopIconsRef } from './components/DesktopIcons/DesktopIcons';
 import type { PortfolioWindowRef } from './components/PortfolioWindow/PortfolioWindow';
 import type { MinesweeperWindowRef } from './components/MinesweeperWindow';
 import type { PaintWindowRef } from './components/PaintWindow';
+import type { ResumeWindowRef } from './components/ResumeWindow';
 
 const Portfolio: React.FC = () => {
   const { openWindows, openWindow, closeWindow, bringToFront, toggleMinimize } = useWindowManager();
@@ -28,59 +28,51 @@ const Portfolio: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const currentTime = useTime();
   const desktopIconsRef = useRef<DesktopIconsRef>(null);
-  const windowRefs = useRef<Map<string, PortfolioWindowRef | MinesweeperWindowRef | PaintWindowRef>>(new Map());
+  const windowRefs = useRef<Map<string, PortfolioWindowRef | MinesweeperWindowRef | PaintWindowRef | ResumeWindowRef>>(new Map());
 
-  const handleDesktopClick = () => {
+  const handleDesktopClick = useCallback(() => {
     closeStartMenu();
     desktopIconsRef.current?.clearSelection();
-  };
+  }, [closeStartMenu]);
 
-  const handleIconDoubleClick = (tab: string) => {
+  const handleIconDoubleClick = useCallback((tab: string) => {
     closeStartMenu();
     openWindow(tab);
-  };
+  }, [closeStartMenu, openWindow]);
 
-  const handleWindowClick = (windowId: string) => {
+  const handleWindowClick = useCallback((windowId: string) => {
     const window = openWindows.find(w => w.id === windowId);
     if (!window) return;
     
-    // Se a janela já está aberta e não minimizada, minimizar
     if (!window.isMinimized) {
       toggleMinimize(windowId);
     } else {
-      // Se está minimizada, restaurar e trazer para frente
       toggleMinimize(windowId);
       bringToFront(windowId);
     }
-  };
+  }, [openWindows, toggleMinimize, bringToFront]);
 
-  const handleTrashDoubleClick = () => {
-    // Close window logic
-  };
+  const handleTrashDoubleClick = useCallback(() => {
+  }, []);
 
-  // Fechar menu iniciar ao clicar fora (exceto no botão start)
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       
-      // Verificar se clicou no botão start
       if (target.closest('.start-button')) {
         return;
       }
       
-      // Verificar se clicou no menu iniciar
       if (target.closest('.start-menu')) {
         return;
       }
       
-      // Fechar o menu se clicou em qualquer outro lugar
       if (startMenuOpen) {
         closeStartMenu();
       }
     };
 
     if (startMenuOpen) {
-      // Adicionar delay para não fechar imediatamente ao abrir
       setTimeout(() => {
         document.addEventListener('click', handleClickOutside);
       }, 0);
@@ -105,7 +97,7 @@ const Portfolio: React.FC = () => {
       
       <TrashIcon onDoubleClick={handleTrashDoubleClick} />
 
-      {/* Open Windows */}
+      {}
       <div className="absolute top-0 left-0 w-full h-[calc(100%-30px)] overflow-hidden pointer-events-none">
         {openWindows.map((window, index) => {
           if (window.tab === 'minesweeper') {
@@ -130,6 +122,25 @@ const Portfolio: React.FC = () => {
           if (window.tab === 'paint') {
             return (
               <PaintWindow 
+                key={window.id}
+                ref={(ref) => {
+                  if (ref) {
+                    windowRefs.current.set(window.id, ref);
+                  } else {
+                    windowRefs.current.delete(window.id);
+                  }
+                }}
+                window={window} 
+                index={index}
+                onClose={closeWindow}
+                onBringToFront={bringToFront}
+                onMinimize={toggleMinimize}
+              />
+            );
+          }
+          if (window.tab === 'resume') {
+            return (
+              <ResumeWindow 
                 key={window.id}
                 ref={(ref) => {
                   if (ref) {

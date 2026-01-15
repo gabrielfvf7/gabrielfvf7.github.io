@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React, { memo } from 'react';
 import type { OpenWindow } from '../../types';
 import { useTaskbar } from './useTaskbar';
 import './Taskbar.css';
@@ -10,7 +10,7 @@ interface TaskbarProps {
   currentTime: string;
 }
 
-export const Taskbar: React.FC<TaskbarProps> = ({ 
+const TaskbarComponent: React.FC<TaskbarProps> = ({ 
   onStartMenuToggle, 
   openWindows, 
   onWindowClick, 
@@ -20,7 +20,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({
 
   return (
     <div className="taskbar">
-      {/* Start Button */}
+      {}
       <button
         onClick={(e) => {
           e.stopPropagation();
@@ -31,7 +31,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({
       >
       </button>
 
-      {/* Window Buttons */}
+      {}
       <div className="window-buttons-container">
         {openWindows.map((window) => (
           <button
@@ -46,7 +46,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({
         ))}
       </div>
 
-      {/* System Tray / Time */}
+      {}
       <div className="system-tray">
         <div className="system-tray-time">
           {currentTime}
@@ -55,3 +55,5 @@ export const Taskbar: React.FC<TaskbarProps> = ({
     </div>
   );
 };
+
+export const Taskbar = memo(TaskbarComponent);

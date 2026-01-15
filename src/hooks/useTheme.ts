@@ -1,8 +1,7 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 
 export const useTheme = () => {
   const [theme, setTheme] = useState<'xp' | 'modern'>(() => {
-    // Carregar tema do localStorage ou usar 'modern' como padrão
     const savedTheme = localStorage.getItem('portfolio-theme');
     return (savedTheme as 'xp' | 'modern') || 'modern';
   });

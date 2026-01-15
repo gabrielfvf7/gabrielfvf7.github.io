@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import { initializeMinesweeper } from '../../utils/minesweeperGame';
 import { useDraggable } from '../../hooks/useDraggable';
 import { useResizable } from '../../hooks/useResizable';
@@ -14,6 +14,7 @@ interface UseMinesweeperWindowProps {
 export const useMinesweeperWindow = ({ window: gameWindow, index, onBringToFront }: UseMinesweeperWindowProps) => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [showGameMenu, setShowGameMenu] = useState(false);
+  const [gameSize, setGameSize] = useState({ width: 180, height: 260 });
   const menuRef = useRef<HTMLDivElement>(null);
   const windowRef = useRef<HTMLDivElement>(null);
   const gameControlsRef = useRef<{ 
@@ -30,11 +31,11 @@ export const useMinesweeperWindow = ({ window: gameWindow, index, onBringToFront
     disabled: isMaximized,
   });
 
-  const { size, isResizing, handleResizeStart, resetSize } = useResizable({
-    initialWidth: 300,
-    initialHeight: 400,
-    minWidth: 250,
-    minHeight: 350,
+  const { size, isResizing, handleResizeStart, resetSize, setSize } = useResizable({
+    initialWidth: gameSize.width,
+    initialHeight: gameSize.height,
+    minWidth: 170,
+    minHeight: 220,
   });
 
   const handleMouseDown = (e: MouseEvent) => {
@@ -61,6 +62,16 @@ export const useMinesweeperWindow = ({ window: gameWindow, index, onBringToFront
     if (gameControlsRef.current) {
       gameControlsRef.current.changeDifficulty(level as 'beginner' | 'intermediate' | 'expert');
     }
+    
+    const sizes = {
+      beginner: { width: 180, height: 260 },
+      intermediate: { width: 240, height: 320 },
+      expert: { width: 380, height: 480 },
+    };
+    const newSize = sizes[level as keyof typeof sizes] || sizes.intermediate;
+    setGameSize(newSize);
+    setSize(newSize.width, newSize.height);
+    
     setShowGameMenu(false);
   };
 
@@ -69,13 +80,11 @@ export const useMinesweeperWindow = ({ window: gameWindow, index, onBringToFront
   };
 
   const restore = () => {
-    // Restore apenas maximização, não minimização
     if (isMaximized) {
       setIsMaximized(false);
     }
   };
 
-  // Inicializar o jogo
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       const gameControls = initializeMinesweeper();
@@ -89,7 +98,6 @@ export const useMinesweeperWindow = ({ window: gameWindow, index, onBringToFront
     return () => clearTimeout(timeoutId);
   }, []);
 
-  // Fechar menu ao clicar fora
   useEffect(() => {
     const handleClickOutside = () => {
       if (showGameMenu) {
