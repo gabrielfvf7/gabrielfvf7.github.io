@@ -15,8 +15,10 @@ import {
   TrashIcon,
   ModernPortfolio
 } from './components';
+import { MinesweeperWindow } from './components/MinesweeperWindow';
 import type { DesktopIconsRef } from './components/DesktopIcons/DesktopIcons';
 import type { PortfolioWindowRef } from './components/PortfolioWindow/PortfolioWindow';
+import type { MinesweeperWindowRef } from './components/MinesweeperWindow';
 
 const Portfolio: React.FC = () => {
   const { openWindows, openWindow, closeWindow } = useWindowManager();
@@ -24,7 +26,7 @@ const Portfolio: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const currentTime = useTime();
   const desktopIconsRef = useRef<DesktopIconsRef>(null);
-  const windowRefs = useRef<Map<string, PortfolioWindowRef>>(new Map());
+  const windowRefs = useRef<Map<string, PortfolioWindowRef | MinesweeperWindowRef>>(new Map());
 
   const handleDesktopClick = () => {
     closeStartMenu();
@@ -63,21 +65,40 @@ const Portfolio: React.FC = () => {
 
       {/* Open Windows */}
       <div className="absolute top-0 left-0 w-full h-[calc(100%-30px)] overflow-hidden pointer-events-none">
-        {openWindows.map((window, index) => (
-          <PortfolioWindow 
-            key={window.id}
-            ref={(ref) => {
-              if (ref) {
-                windowRefs.current.set(window.id, ref);
-              } else {
-                windowRefs.current.delete(window.id);
-              }
-            }}
-            window={window} 
-            index={index}
-            onClose={closeWindow}
-          />
-        ))}
+        {openWindows.map((window, index) => {
+          if (window.tab === 'minesweeper') {
+            return (
+              <MinesweeperWindow 
+                key={window.id}
+                ref={(ref) => {
+                  if (ref) {
+                    windowRefs.current.set(window.id, ref);
+                  } else {
+                    windowRefs.current.delete(window.id);
+                  }
+                }}
+                window={window} 
+                index={index}
+                onClose={closeWindow}
+              />
+            );
+          }
+          return (
+            <PortfolioWindow 
+              key={window.id}
+              ref={(ref) => {
+                if (ref) {
+                  windowRefs.current.set(window.id, ref);
+                } else {
+                  windowRefs.current.delete(window.id);
+                }
+              }}
+              window={window} 
+              index={index}
+              onClose={closeWindow}
+            />
+          );
+        })}
       </div>
 
       <StartMenu 

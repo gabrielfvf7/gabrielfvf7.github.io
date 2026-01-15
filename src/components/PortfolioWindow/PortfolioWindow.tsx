@@ -151,21 +151,6 @@ export const PortfolioWindow = forwardRef<PortfolioWindowRef, PortfolioWindowPro
                 Ver Repositório →
               </a>
             </div>
-
-            <div className="content-box">
-              <div className="project-header">
-                <div>
-                  <div className="project-name">Minesweeper XP</div>
-                  <div className="project-tech">JavaScript • HTML/CSS</div>
-                </div>
-              </div>
-              <div className="info-panel">
-                <div>Clone do Campo Minado clássico. Foco em lógica de algoritmos e manipulação de DOM com JavaScript puro.</div>
-              </div>
-              <a href="/minado/index.html" target="_blank" className="xp-button">
-                Jogar Agora →
-              </a>
-            </div>
           </div>
         )}
 

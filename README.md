@@ -53,6 +53,14 @@ src/
 ├── assets/
 │   └── icons/          # Ícones do Windows XP
 ├── components/         # Componentes React
+│   ├── Desktop/
+│   ├── DesktopIcons/
+│   ├── MinesweeperWindow/
+│   ├── ModernPortfolio/
+│   ├── PortfolioWindow/
+│   ├── StartMenu/
+│   ├── Taskbar/
+│   └── TrashIcon/
 ├── constants/          # Constantes e dados
 ├── hooks/             # Custom hooks
 ├── types/             # TypeScript types
@@ -67,34 +75,12 @@ docs/                  # Documentação
 - 🪟 Interface Windows XP autêntica
 - 💼 Portfolio moderno alternativo
 - 🎨 Troca dinâmica de temas
-- 📱 Janelas arrastáveis e redimensionáveis
+- 🎮 Campo Minado integrado (versão XP)
 - 🔄 Minimizar/Maximizar janelas
+- ⏰ Relógio funcional na taskbar
 - 📊 Informações profissionais interativas
 
 ## 📝 Documentação Adicional
 
 Veja a pasta [docs/](./docs/) para documentação detalhada sobre implementações e features do projeto.
-
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```

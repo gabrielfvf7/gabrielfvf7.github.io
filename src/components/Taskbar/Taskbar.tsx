@@ -37,6 +37,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({
               case 'projects': return '/icons/Freecell.png';
               case 'experience': return '/icons/Scheduled Tasks.png';
               case 'skills': return '/icons/System Information.png';
+              case 'minesweeper': return '/icons/Minesweeper.png';
               default: return '/icons/Default.png';
             }
           };
