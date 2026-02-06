@@ -1,31 +1,76 @@
-﻿
-type AssetKey = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'FLAG' | 'QUESTION' | 'MINE' | 'MINE_DEATH' | 'MISFLAGGED' | 'SMILE' | 'OHH' | 'DEAD' | 'WIN' | 
-  'digit0' | 'digit1' | 'digit2' | 'digit3' | 'digit4' | 'digit5' | 'digit6' | 'digit7' | 'digit8' | 'digit9';
+﻿import {
+  LEADERBOARD_ERROR_KEY,
+  LEADERBOARD_OFFLINE_MESSAGE,
+  PENDING_SCORE_KEY,
+  leaderboardService,
+} from "../services/leaderboardService";
 
-type DifficultyLevel = 'beginner' | 'intermediate' | 'expert';
+type AssetKey =
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | "FLAG"
+  | "QUESTION"
+  | "MINE"
+  | "MINE_DEATH"
+  | "MISFLAGGED"
+  | "SMILE"
+  | "OHH"
+  | "DEAD"
+  | "WIN"
+  | "digit0"
+  | "digit1"
+  | "digit2"
+  | "digit3"
+  | "digit4"
+  | "digit5"
+  | "digit6"
+  | "digit7"
+  | "digit8"
+  | "digit9";
 
-export function initializeMinesweeper() {
+type DifficultyLevel = "beginner" | "intermediate" | "expert";
+
+export function initializeMinesweeper(onOpenWindow?: (tab: string) => void) {
   let LINHAS: number;
   let COLUNAS: number;
   let NUM_BOMBAS: number;
 
-  const CONFIG_DIFICULDADE: Record<DifficultyLevel, { LINHAS: number; COLUNAS: number; BOMBAS: number }> = {
+  const CONFIG_DIFICULDADE: Record<
+    DifficultyLevel,
+    { LINHAS: number; COLUNAS: number; BOMBAS: number }
+  > = {
     beginner: { LINHAS: 8, COLUNAS: 8, BOMBAS: 10 },
     intermediate: { LINHAS: 10, COLUNAS: 10, BOMBAS: 15 },
     expert: { LINHAS: 16, COLUNAS: 16, BOMBAS: 40 },
   };
 
-  const tabuleiroElemento = document.getElementById('tabuleiro');
-  const botaoReiniciar = document.getElementById('botao-reiniciar');
-  const mensagemFinal = document.getElementById('mensagem-final');
-  const textoMensagem = document.getElementById('texto-mensagem');
-  const contadorBandeiras = document.getElementById('contador-bandeiras');
-  const seletorDificuldade = document.getElementById('dificuldade') as HTMLSelectElement | null;
-  const timerElemento = document.getElementById('timer');
+  const tabuleiroElemento = document.getElementById("tabuleiro");
+  const botaoReiniciar = document.getElementById("botao-reiniciar");
+  const mensagemFinal = document.getElementById("mensagem-final");
+  const textoMensagem = document.getElementById("texto-mensagem");
+  const contadorBandeiras = document.getElementById("contador-bandeiras");
+  const seletorDificuldade = document.getElementById(
+    "dificuldade",
+  ) as HTMLSelectElement | null;
+  const timerElemento = document.getElementById("timer");
 
-  if (!tabuleiroElemento || !botaoReiniciar || !mensagemFinal || !textoMensagem || 
-      !contadorBandeiras || !seletorDificuldade || !timerElemento) {
-    console.error('Elementos do jogo não encontrados');
+  if (
+    !tabuleiroElemento ||
+    !botaoReiniciar ||
+    !mensagemFinal ||
+    !textoMensagem ||
+    !contadorBandeiras ||
+    !seletorDificuldade ||
+    !timerElemento
+  ) {
+    console.error("Elementos do jogo não encontrados");
     return null;
   }
 
@@ -36,34 +81,34 @@ export function initializeMinesweeper() {
   let tempoDecorrido: number;
 
   const ASSETS_PATHS: Record<AssetKey, string> = {
-    0: 'empty.png',
-    1: 'open1.png',
-    2: 'open2.png',
-    3: 'open3.png',
-    4: 'open4.png',
-    5: 'open5.png',
-    6: 'open6.png',
-    7: 'open7.png',
-    8: 'open8.png',
-    FLAG: 'flag.png',
-    QUESTION: 'question.png',
-    MINE: 'mine-ceil.png',
-    MINE_DEATH: 'mine-death.png',
-    MISFLAGGED: 'misflagged.png',
-    SMILE: 'smile.png',
-    OHH: 'ohh.png',
-    DEAD: 'dead.png',
-    WIN: 'win.png',
-    digit0: 'digit0.png',
-    digit1: 'digit1.png',
-    digit2: 'digit2.png',
-    digit3: 'digit3.png',
-    digit4: 'digit4.png',
-    digit5: 'digit5.png',
-    digit6: 'digit6.png',
-    digit7: 'digit7.png',
-    digit8: 'digit8.png',
-    digit9: 'digit9.png',
+    0: "empty.png",
+    1: "open1.png",
+    2: "open2.png",
+    3: "open3.png",
+    4: "open4.png",
+    5: "open5.png",
+    6: "open6.png",
+    7: "open7.png",
+    8: "open8.png",
+    FLAG: "flag.png",
+    QUESTION: "question.png",
+    MINE: "mine-ceil.png",
+    MINE_DEATH: "mine-death.png",
+    MISFLAGGED: "misflagged.png",
+    SMILE: "smile.png",
+    OHH: "ohh.png",
+    DEAD: "dead.png",
+    WIN: "win.png",
+    digit0: "digit0.png",
+    digit1: "digit1.png",
+    digit2: "digit2.png",
+    digit3: "digit3.png",
+    digit4: "digit4.png",
+    digit5: "digit5.png",
+    digit6: "digit6.png",
+    digit7: "digit7.png",
+    digit8: "digit8.png",
+    digit9: "digit9.png",
   };
 
   function getAssetHTML(assetKey: AssetKey): string {
@@ -71,13 +116,13 @@ export function initializeMinesweeper() {
     if (fileName) {
       return `<img src="/minado/assets/${fileName}" alt="${assetKey}" class="asset-icon">`;
     }
-    return '';
+    return "";
   }
 
   function renderizarContador(numero: number): string {
     const num = Math.min(999, Math.max(0, numero));
-    const numStr = String(num).padStart(3, '0');
-    let html = '';
+    const numStr = String(num).padStart(3, "0");
+    let html = "";
     for (let i = 0; i < 3; i++) {
       const digito = parseInt(numStr[i]);
       const digitKey = `digit${digito}` as AssetKey;
@@ -102,9 +147,9 @@ export function initializeMinesweeper() {
     tabuleiro = [];
     bombasRestantes = NUM_BOMBAS;
     jogoAtivo = true;
-    mensagemFinal!.classList.add('oculto');
-    botaoReiniciar!.innerHTML = getAssetHTML('SMILE');
-    botaoReiniciar!.classList.remove('derrota', 'vitoria');
+    mensagemFinal!.classList.add("oculto");
+    botaoReiniciar!.innerHTML = getAssetHTML("SMILE");
+    botaoReiniciar!.classList.remove("derrota", "vitoria");
     resetarCronometro();
 
     for (let i = 0; i < LINHAS; i++) {
@@ -151,28 +196,28 @@ export function initializeMinesweeper() {
   }
 
   function criarDOMTabuleiro(): void {
-    tabuleiroElemento!.innerHTML = '';
+    tabuleiroElemento!.innerHTML = "";
     contadorBandeiras!.innerHTML = renderizarContador(bombasRestantes);
 
     for (let i = 0; i < LINHAS; i++) {
       for (let j = 0; j < COLUNAS; j++) {
-        const celula = document.createElement('div');
-        celula.classList.add('celula');
+        const celula = document.createElement("div");
+        celula.classList.add("celula");
 
-        celula.addEventListener('mousedown', (event) => {
+        celula.addEventListener("mousedown", (event) => {
           if (jogoAtivo && event.button === 0)
-            botaoReiniciar!.innerHTML = getAssetHTML('OHH');
+            botaoReiniciar!.innerHTML = getAssetHTML("OHH");
         });
 
-        celula.addEventListener('mouseup', () => {
-          if (jogoAtivo) botaoReiniciar!.innerHTML = getAssetHTML('SMILE');
+        celula.addEventListener("mouseup", () => {
+          if (jogoAtivo) botaoReiniciar!.innerHTML = getAssetHTML("SMILE");
         });
 
-        celula.addEventListener('click', () => {
+        celula.addEventListener("click", () => {
           revelarCelula(i, j);
         });
 
-        celula.addEventListener('contextmenu', (e) => {
+        celula.addEventListener("contextmenu", (e) => {
           e.preventDefault();
           colocarBandeira(celula);
         });
@@ -216,32 +261,36 @@ export function initializeMinesweeper() {
       iniciarCronometro();
     }
 
-    const celulaDOM = tabuleiroElemento!.children[r * COLUNAS + c] as HTMLElement;
+    const celulaDOM = tabuleiroElemento!.children[
+      r * COLUNAS + c
+    ] as HTMLElement;
 
     if (
-      celulaDOM.classList.contains('revelada') ||
-      celulaDOM.classList.contains('bandeira')
+      celulaDOM.classList.contains("revelada") ||
+      celulaDOM.classList.contains("bandeira")
     ) {
       return;
     }
 
-    if (celulaDOM.classList.contains('interrogacao')) {
-      celulaDOM.classList.remove('interrogacao');
-      celulaDOM.innerHTML = '';
+    if (celulaDOM.classList.contains("interrogacao")) {
+      celulaDOM.classList.remove("interrogacao");
+      celulaDOM.innerHTML = "";
     }
 
-    celulaDOM.classList.add('revelada');
+    celulaDOM.classList.add("revelada");
     const valor = tabuleiro[r][c];
 
     if (valor === -1) {
-      celulaDOM.classList.add('bomba', 'hit');
-      celulaDOM.innerHTML = getAssetHTML('MINE_DEATH');
+      celulaDOM.classList.add("bomba", "hit");
+      celulaDOM.innerHTML = getAssetHTML("MINE_DEATH");
       fimDeJogo(false);
       return;
     }
 
     if (valor >= 0 && valor <= 8) {
-      celulaDOM.innerHTML = getAssetHTML(valor as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8);
+      celulaDOM.innerHTML = getAssetHTML(
+        valor as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8,
+      );
     }
 
     if (valor === 0) {
@@ -265,25 +314,25 @@ export function initializeMinesweeper() {
   }
 
   function colocarBandeira(celulaDOM: HTMLElement): void {
-    if (!jogoAtivo || celulaDOM.classList.contains('revelada')) return;
+    if (!jogoAtivo || celulaDOM.classList.contains("revelada")) return;
     if (tempoDecorrido === 0) {
       iniciarCronometro();
     }
 
-    const temBandeira = celulaDOM.classList.contains('bandeira');
-    const temInterrogacao = celulaDOM.classList.contains('interrogacao');
+    const temBandeira = celulaDOM.classList.contains("bandeira");
+    const temInterrogacao = celulaDOM.classList.contains("interrogacao");
 
     if (temBandeira) {
-      celulaDOM.classList.remove('bandeira');
-      celulaDOM.classList.add('interrogacao');
-      celulaDOM.innerHTML = getAssetHTML('QUESTION');
+      celulaDOM.classList.remove("bandeira");
+      celulaDOM.classList.add("interrogacao");
+      celulaDOM.innerHTML = getAssetHTML("QUESTION");
       bombasRestantes++;
     } else if (temInterrogacao) {
-      celulaDOM.classList.remove('interrogacao');
-      celulaDOM.innerHTML = '';
+      celulaDOM.classList.remove("interrogacao");
+      celulaDOM.innerHTML = "";
     } else if (bombasRestantes > 0) {
-      celulaDOM.classList.add('bandeira');
-      celulaDOM.innerHTML = getAssetHTML('FLAG');
+      celulaDOM.classList.add("bandeira");
+      celulaDOM.innerHTML = getAssetHTML("FLAG");
       bombasRestantes--;
     }
 
@@ -296,7 +345,7 @@ export function initializeMinesweeper() {
     const totalCelulas = LINHAS * COLUNAS;
 
     for (let i = 0; i < tabuleiroElemento!.children.length; i++) {
-      if (tabuleiroElemento!.children[i].classList.contains('revelada')) {
+      if (tabuleiroElemento!.children[i].classList.contains("revelada")) {
         celulasReveladas++;
       }
     }
@@ -311,65 +360,124 @@ export function initializeMinesweeper() {
     pararCronometro();
 
     if (!vitoria) {
-      botaoReiniciar!.innerHTML = getAssetHTML('DEAD');
+      botaoReiniciar!.innerHTML = getAssetHTML("DEAD");
       for (let i = 0; i < LINHAS; i++) {
         for (let j = 0; j < COLUNAS; j++) {
-          const celulaDOM = tabuleiroElemento!.children[i * COLUNAS + j] as HTMLElement;
+          const celulaDOM = tabuleiroElemento!.children[
+            i * COLUNAS + j
+          ] as HTMLElement;
           if (tabuleiro[i][j] === -1) {
             if (
-              !celulaDOM.classList.contains('hit') &&
-              !celulaDOM.classList.contains('bandeira')
+              !celulaDOM.classList.contains("hit") &&
+              !celulaDOM.classList.contains("bandeira")
             ) {
-              celulaDOM.classList.add('revelada', 'bomba');
-              celulaDOM.innerHTML = getAssetHTML('MINE');
+              celulaDOM.classList.add("revelada", "bomba");
+              celulaDOM.innerHTML = getAssetHTML("MINE");
             }
-            if (celulaDOM.classList.contains('bandeira')) {
-              celulaDOM.classList.add('revelada');
+            if (celulaDOM.classList.contains("bandeira")) {
+              celulaDOM.classList.add("revelada");
             }
-          } else if (celulaDOM.classList.contains('bandeira')) {
-            celulaDOM.classList.add('revelada');
-            celulaDOM.innerHTML = getAssetHTML('MISFLAGGED');
-          } else if (celulaDOM.classList.contains('interrogacao')) {
-            celulaDOM.classList.remove('interrogacao');
-            celulaDOM.innerHTML = '';
+          } else if (celulaDOM.classList.contains("bandeira")) {
+            celulaDOM.classList.add("revelada");
+            celulaDOM.innerHTML = getAssetHTML("MISFLAGGED");
+          } else if (celulaDOM.classList.contains("interrogacao")) {
+            celulaDOM.classList.remove("interrogacao");
+            celulaDOM.innerHTML = "";
           }
-          celulaDOM.classList.add('revelada');
+          celulaDOM.classList.add("revelada");
         }
       }
     } else {
-      botaoReiniciar!.innerHTML = getAssetHTML('WIN');
+      botaoReiniciar!.innerHTML = getAssetHTML("WIN");
       for (let i = 0; i < LINHAS; i++) {
         for (let j = 0; j < COLUNAS; j++) {
-          const celulaDOM = tabuleiroElemento!.children[i * COLUNAS + j] as HTMLElement;
-          celulaDOM.classList.remove('interrogacao');
+          const celulaDOM = tabuleiroElemento!.children[
+            i * COLUNAS + j
+          ] as HTMLElement;
+          celulaDOM.classList.remove("interrogacao");
           if (
             tabuleiro[i][j] === -1 &&
-            !celulaDOM.classList.contains('bandeira')
+            !celulaDOM.classList.contains("bandeira")
           ) {
-            celulaDOM.classList.add('bandeira');
-            celulaDOM.innerHTML = getAssetHTML('FLAG');
+            celulaDOM.classList.add("bandeira");
+            celulaDOM.innerHTML = getAssetHTML("FLAG");
           }
-          celulaDOM.classList.add('revelada');
+          celulaDOM.classList.add("revelada");
         }
       }
       bombasRestantes = 0;
       contadorBandeiras!.innerHTML = renderizarContador(0);
     }
 
-    mensagemFinal!.classList.remove('oculto');
-    mensagemFinal!.classList.remove('vitoria', 'derrota');
+    mensagemFinal!.classList.remove("oculto");
+    mensagemFinal!.classList.remove("vitoria", "derrota");
 
     if (vitoria) {
       textoMensagem!.textContent = `🎉 Parabéns! Você venceu em ${tempoDecorrido}s! 🎉`;
-      mensagemFinal!.classList.add('vitoria');
+      mensagemFinal!.classList.add("vitoria");
+
+      // Verificar se o score qualifica para o leaderboard
+      handleVictoryLeaderboard(
+        tempoDecorrido,
+        seletorDificuldade!.value as DifficultyLevel,
+      );
     } else {
-      textoMensagem!.textContent = '💥 Game Over! 💥';
-      mensagemFinal!.classList.add('derrota');
+      textoMensagem!.textContent = "💥 Game Over! 💥";
+      mensagemFinal!.classList.add("derrota");
+    }
+  }
+  // Função para lidar com leaderboard quando há vitória
+  async function handleVictoryLeaderboard(
+    timeInSeconds: number,
+    difficulty: DifficultyLevel,
+  ): Promise<void> {
+    try {
+      const isOnline = await leaderboardService.isBackendOnline();
+      if (!isOnline) {
+        localStorage.setItem(
+          LEADERBOARD_ERROR_KEY,
+          LEADERBOARD_OFFLINE_MESSAGE,
+        );
+
+        if (onOpenWindow) {
+          onOpenWindow("leaderboard");
+        }
+        return;
+      }
+
+      // Verificar se o score qualifica para o top 10
+      const qualifica = await leaderboardService.isScoreInTop10(
+        difficulty,
+        timeInSeconds,
+      );
+
+      if (qualifica) {
+        const config = CONFIG_DIFICULDADE[difficulty];
+        const pendingScore = {
+          difficulty,
+          timeInSeconds,
+          boardConfig: {
+            rows: config.LINHAS,
+            cols: config.COLUNAS,
+            mines: config.BOMBAS,
+          },
+        };
+
+        localStorage.setItem(PENDING_SCORE_KEY, JSON.stringify(pendingScore));
+        localStorage.removeItem(LEADERBOARD_ERROR_KEY);
+
+        // Abrir janela do leaderboard para cadastrar o nome
+        if (onOpenWindow) {
+          onOpenWindow("leaderboard");
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao verificar leaderboard:", error);
     }
   }
 
-  botaoReiniciar!.addEventListener('click', iniciarJogo);
-  seletorDificuldade!.addEventListener('change', iniciarJogo);
+  botaoReiniciar!.addEventListener("click", iniciarJogo);
+  seletorDificuldade!.addEventListener("change", iniciarJogo);
 
   aplicarDificuldade(seletorDificuldade!.value as DifficultyLevel);
   iniciarJogo();
@@ -377,16 +485,15 @@ export function initializeMinesweeper() {
   return {
     cleanup: () => {
       pararCronometro();
-      botaoReiniciar!.removeEventListener('click', iniciarJogo);
-      seletorDificuldade!.removeEventListener('change', () => {
-        console.log('Change listener triggered!');
+      botaoReiniciar!.removeEventListener("click", iniciarJogo);
+      seletorDificuldade!.removeEventListener("change", () => {
+        console.log("Change listener triggered!");
         iniciarJogo();
       });
     },
     changeDifficulty: (level: DifficultyLevel) => {
       seletorDificuldade!.value = level;
       iniciarJogo();
-    }
+    },
   };
 }
-

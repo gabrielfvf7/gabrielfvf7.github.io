@@ -1,0 +1,213 @@
+/* Difficulty Tabs */
+.difficulty-tabs {
+  display: flex;
+  margin: 16px 0;
+  border-bottom: 1px solid #808080;
+}
+
+.tab-button {
+  padding: 8px 16px;
+  border: none;
+  background: #c0c0c0;
+  color: #000;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  border-top: 1px outset #c0c0c0;
+  border-left: 1px outset #c0c0c0;
+  border-right: 1px outset #c0c0c0;
+  margin-right: 2px;
+}
+
+.tab-button:hover {
+  background: #d4d0c8;
+}
+
+.tab-button.active {
+  background: #fff;
+  border-bottom: 1px solid #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.tab-button:active {
+  border-top: 1px inset #c0c0c0;
+  border-left: 1px inset #c0c0c0;
+  border-right: 1px inset #c0c0c0;
+}
+
+/* Additional styles */
+.no-scores {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-style: italic;
+}
+
+.error {
+  text-align: center;
+  padding: 20px;
+  color: #d00;
+  font-weight: bold;
+}
+
+/* Leaderboard Modal Styles */
+.leaderboard-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  font-family: 'MS Sans Serif', sans-serif;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+}
+
+.modal-content {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  padding: 16px;
+  min-width: 400px;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+  color: #000;
+  margin: 0 0 16px 0;
+  text-align: center;
+  font-size: 18px;
+}
+
+.modal-content h3 {
+  color: #000;
+  margin: 16px 0 12px 0;
+  font-size: 16px;
+}
+
+.modal-content p {
+  color: #000;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.player-input {
+  margin: 16px 0;
+}
+
+.player-input label {
+  display: block;
+  color: #000;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.player-input input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px inset #c0c0c0;
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+
+.modal-buttons button {
+  padding: 6px 12px;
+  border: 1px outset #c0c0c0;
+  background: #c0c0c0;
+  color: #000;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  min-width: 100px;
+}
+
+.modal-buttons button:hover {
+  background: #d4d0c8;
+}
+
+.modal-buttons button:active {
+  border: 1px inset #c0c0c0;
+}
+
+#leaderboard-container {
+  margin-top: 16px;
+  border: 1px inset #c0c0c0;
+  padding: 12px;
+  background: #fff;
+}
+
+.leaderboard-entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 8px;
+  margin: 2px 0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 14px;
+}
+
+.leaderboard-entry:last-child {
+  border-bottom: none;
+}
+
+.leaderboard-entry.current-player {
+  background: #ffffcc;
+  border: 1px solid #888;
+  font-weight: bold;
+}
+
+.leaderboard-entry .position {
+  color: #666;
+  min-width: 30px;
+}
+
+.leaderboard-entry .name {
+  flex: 1;
+  padding: 0 8px;
+  color: #000;
+}
+
+.leaderboard-entry .time {
+  color: #008000;
+  font-weight: bold;
+  min-width: 50px;
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .modal-content {
+    min-width: 90vw;
+    margin: 10px;
+  }
+  
+  .modal-buttons {
+    justify-content: center;
+  }
+  
+  .modal-buttons button {
+    flex: 1;
+    min-width: 80px;
+  }
+}

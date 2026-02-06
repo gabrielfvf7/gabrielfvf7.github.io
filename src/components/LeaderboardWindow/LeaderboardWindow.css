@@ -1,0 +1,271 @@
+.leaderboard-window {
+  position: absolute;
+  background: #ece9d8;
+  border: 3px solid;
+  border-color: #0831d9 #0831d9 #0831d9 #0831d9;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5), inset -1px -1px #424fa2, inset 1px 1px #4e68d1, inset -2px -2px #5669c0, inset 2px 2px #528eef, inset -3px -3px #4e73d7, inset 3px 3px #5284da;
+  pointer-events: auto;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center center;
+}
+
+.leaderboard-window.maximized {
+  width: 100vw !important;
+  height: calc(100vh - 30px) !important;
+  border-radius: 0;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+.leaderboard-window .window-title-bar {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  background: linear-gradient(180deg, #0997ff, #0053ee 8%, #0050ee 40%, #06f 88%, #06f 93%, #005bff 95%, #003dd7 96%, #003dd7);
+  flex-shrink: 0;
+  padding: 0 4px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.leaderboard-window .window-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 4px;
+  flex-shrink: 0;
+}
+
+.leaderboard-window .window-title {
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  flex: 1;
+  padding: 0 8px;
+  user-select: none;
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  text-shadow: none;
+  line-height: 1;
+}
+
+.leaderboard-window .window-controls {
+  display: flex;
+  gap: 2px;
+  margin-right: 2px;
+  flex-shrink: 0;
+}
+
+.leaderboard-window .window-control-btn {
+  width: 21px;
+  height: 21px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.leaderboard-window .window-control-btn img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.leaderboard-window .window-control-btn:hover img {
+  filter: brightness(1.1);
+}
+
+.leaderboard-window .window-control-btn:active img {
+  filter: brightness(0.9);
+}
+
+.leaderboard-window .window-content {
+  background: #ece9d8;
+  padding: 10px;
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.leaderboard-window .difficulty-tabs {
+    justify-content: space-between;
+    gap: 2px;
+    margin-bottom: 10px;
+    border: none;
+}
+
+.leaderboard-window .tab-button {
+    background: #d4d0c8;
+    border: 2px outset #d4d0c8;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-size: 11px;
+    color: #000;
+    font-family: 'MS Sans Serif', Tahoma, sans-serif;
+    flex: 1;
+}
+
+.leaderboard-window .tab-button:hover {
+  background: #e8e5de;
+}
+
+.leaderboard-window .tab-button.active {
+  background: #ece9d8;
+  border: 2px inset #d4d0c8;
+}
+
+.leaderboard-window .leaderboard-content {
+  background: white;
+  border: 2px inset #d4d0c8;
+  padding: 10px;
+  flex: 1;
+  overflow: auto;
+  min-height: 200px;
+}
+
+.leaderboard-window .leaderboard-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #000080;
+  font-size: 12px;
+  font-family: 'MS Sans Serif', Tahoma, sans-serif;
+}
+
+.leaderboard-window .leaderboard-prompt {
+  border: 1px solid #9c9c9c;
+  background: #f7f4e9;
+  padding: 8px;
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+
+.leaderboard-window .leaderboard-prompt-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.leaderboard-window .leaderboard-prompt-meta {
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.leaderboard-window .leaderboard-prompt-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.leaderboard-window .leaderboard-prompt-input {
+  flex: 1;
+  padding: 3px 6px;
+  border: 1px solid #7f9db9;
+  font-size: 11px;
+  font-family: 'MS Sans Serif', Tahoma, sans-serif;
+}
+
+.leaderboard-window .leaderboard-prompt-btn {
+  padding: 3px 10px;
+  border: 1px solid #4f6ea1;
+  background: #e1e7f7;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.leaderboard-window .leaderboard-prompt-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.leaderboard-window .leaderboard-prompt-btn.secondary {
+  background: #f3f3f3;
+  border-color: #9a9a9a;
+}
+
+.leaderboard-window .scores-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.leaderboard-window .scores-header {
+  display: grid;
+  grid-template-columns: 50px 1fr 80px 100px;
+  gap: 5px;
+  padding: 5px 10px;
+  background: #d4d0c8;
+  border-bottom: 1px solid #808080;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.leaderboard-window .score-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 80px 100px;
+  gap: 5px;
+  padding: 5px 10px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 11px;
+}
+
+.leaderboard-window .score-row:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.leaderboard-window .score-row:hover {
+  background: #cce5ff;
+}
+
+.leaderboard-window .position {
+  text-align: center;
+  font-weight: bold;
+  color: #000080;
+}
+
+.leaderboard-window .player-name {
+  font-weight: bold;
+}
+
+.leaderboard-window .time {
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  color: #0066cc;
+}
+
+.leaderboard-window .date {
+  font-size: 10px;
+  color: #666;
+}
+
+.leaderboard-window .loading-message {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-style: italic;
+}
+
+.leaderboard-window .empty-message {
+  text-align: center; 
+  padding: 20px;
+  color: #666;
+  font-style: italic;
+}
+
+.leaderboard-window .error-message {
+  text-align: center;
+  padding: 20px;
+  color: #cc0000;
+  font-weight: bold;
+}
